@@ -30,7 +30,7 @@
 
 ---
 
-### **03. الأمان | Security**
+### **03. الأمان | Security** ✅ مكتمل
 سياسات وضوابط الأمان الشاملة
 
 - [01. المصادقة والتخويل | Authentication & Authorization](03-Security/01_Authentication_Authorization.md)
@@ -39,7 +39,7 @@
 
 ---
 
-### **04. التنفيذ | Implementation**
+### **04. التنفيذ | Implementation** ✅ مكتمل
 معايير التطبيق والتنفيذ العملي
 
 - [01. نماذج الاستجابة والأخطاء | Response & Error Handling](04-Implementation/01_Response_Error_Handling.md)
@@ -51,7 +51,7 @@
 
 ---
 
-### **05. العمليات | Operations**
+### **05. العمليات | Operations** ✅ مكتمل
 التشغيل والمراقبة والأداء
 
 - [01. التخزين المؤقت والأداء | Caching & Performance](05-Operations/01_Caching_Performance.md)
@@ -61,7 +61,7 @@
 
 ---
 
-### **06. الاختبارات والجودة | Testing & Quality**
+### **06. الاختبارات والجودة | Testing & Quality** ✅ مكتمل
 استراتيجيات الاختبار وضمان الجودة
 
 - [01. استراتيجية الاختبارات | Testing Strategy](06-Testing-Quality/01_Testing_Strategy.md)
@@ -71,7 +71,7 @@
 
 ---
 
-### **07. المراجع | Reference**
+### **07. المراجع | Reference** ✅ مكتمل
 قوالب، قوائم تحقق، وموارد سريعة
 
 - [01. قوالب وأمثلة | Templates & Examples](07-Reference/01_Templates_Examples.md)
@@ -81,7 +81,7 @@
 
 ---
 
-### **08. مواضيع متقدمة | Advanced Topics**
+### **08. مواضيع متقدمة | Advanced Topics** ✅ مكتمل
 مواضيع متقدمة للتكامل والتوسع
 
 - [01. Webhooks والتكاملات | Webhooks & Integrations](08-Advanced/01_Webhooks_Integrations.md)
@@ -91,21 +91,21 @@
 
 ---
 
-### **09. الحوكمة | Governance**
+### **09. الحوكمة | Governance** ✅ مكتمل
 الحوكمة وإدارة التغيير
 
 - [01. الحوكمة وإدارة التغيير | Governance & Change Management](09-Governance/01_Governance_Change_Management.md)
 - [02. الخصوصية والامتثال | Privacy & Compliance](09-Governance/02_Privacy_Compliance.md)
-- [03. النسخ الاحتياطي والاستعادة | Backup & Recovery](09-Governance/03_Backup_Recovery.md)
+- [03. النسخ الاحتياطي والاستعادة | Backup & Disaster Recovery](09-Governance/03_Backup_Recovery.md)
 
 ---
 
-### **10. البنية التحتية | Infrastructure**
+### **10. البنية التحتية | Infrastructure** ✅ مكتمل
 البنية التحتية كأكواد وإدارة التكاليف
 
-- [01. البنية التحتية ككود | Infrastructure as Code](10-Infrastructure/01_Infrastructure_as_Code.md)
-- [02. إدارة التكاليف | Cost Management](10-Infrastructure/02_Cost_Management.md)
-- [03. إدارة الهوية والوصول | Identity & Access Management](10-Infrastructure/03_IAM.md)
+- [01. البنية التحتية ككود | Infrastructure as Code (IaC)](10-Infrastructure/01_Infrastructure_as_Code.md)
+- [02. إدارة التكاليف | Cost Management & FinOps](10-Infrastructure/02_Cost_Management.md)
+- [03. إدارة الهوية والوصول | Identity & Access Management (IAM)](10-Infrastructure/03_IAM.md)
 
 ---
 
