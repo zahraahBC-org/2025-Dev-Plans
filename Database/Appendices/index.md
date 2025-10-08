@@ -55,13 +55,64 @@
 [D_Code_Examples.md](D_Code_Examples.md)
 
 **المحتوى**:
-- أمثلة Flutter جاهزة للاستخدام
-- أمثلة Python للواجهة الخلفية
+- أمثلة Flutter جاهزة للاستخدام  
+- أمثلة Laravel 12 للواجهة الخلفية
 - التكامل مع Firebase Analytics
 - معالجة المعاملات
+- Background Jobs & Events
+- API Resources & Validation
 
-**الجمهور**: المطورون (Flutter + Backend)  
-**الوقت المتوقع**: 30 دقيقة قراءة
+**الجمهور**: المطورون (Flutter + Laravel Backend)  
+**الوقت المتوقع**: 45 دقيقة قراءة
+
+---
+
+### **ملحق هـ: معمارية Laravel النظيفة | E: Laravel Clean Architecture**
+[E_Laravel_Clean_Architecture.md](E_Laravel_Clean_Architecture.md)
+
+**المحتوى**:
+- مبادئ Clean Architecture
+- هيكل الطبقات في Laravel
+- Domain Layer (Entities, Value Objects, Services)
+- Application Layer (Use Cases, DTOs)
+- Infrastructure Layer (Repositories)
+- Presentation Layer (Controllers, Resources)
+- تدفق البيانات وأفضل الممارسات
+
+**الجمهور**: معماريو Backend، مطورو Laravel المتقدمين  
+**الوقت المتوقع**: 60 دقيقة قراءة
+
+---
+
+### **ملحق و: أفضل ممارسات Laravel | F: Laravel Best Practices**
+[F_Laravel_Best_Practices.md](F_Laravel_Best_Practices.md)
+
+**المحتوى**:
+- Service Classes Pattern
+- Repository Pattern Implementation
+- Form Request Validation
+- API Resources & Collections
+- Query Optimization Techniques
+- Laravel-Specific Best Practices
+
+**الجمهور**: مطورو Laravel، معماريو Backend  
+**الوقت المتوقع**: 50 دقيقة قراءة
+
+---
+
+### **ملحق ز: ميزات Laravel المتقدمة | G: Laravel Advanced Features**
+[G_Laravel_Advanced_Features.md](G_Laravel_Advanced_Features.md)
+
+**المحتوى**:
+- Background Jobs & Queues
+- Events & Listeners System
+- Multi-Channel Notifications (Email, SMS, Push)
+- Task Scheduling (Cron Jobs)
+- File Storage & Media Management
+- Broadcasting & Real-time Features
+
+**الجمهور**: مطورو Laravel المتقدمين، مهندسو النظم  
+**الوقت المتوقع**: 55 دقيقة قراءة
 
 ---
 
@@ -87,6 +138,7 @@
 
 ---
 
-**إصدار الملاحق | Appendices Version**: 1.0  
+**إصدار الملاحق | Appendices Version**: 2.0  
 **آخر تحديث | Last Updated**: 2025-01-08  
-**عدد الملاحق | Number of Appendices**: 4
+**عدد الملاحق | Number of Appendices**: 7  
+**التقنيات | Technologies**: MySQL 8.x, Laravel 12, Flutter, Firebase

@@ -5,8 +5,10 @@
 
 توفر هذه الوثائق الشاملة مواصفات على مستوى المؤسسات لتصميم قاعدة البيانات الخاصة بمنصة التجارة الإلكترونية **زهراء** للأزياء النسائية. تغطي الوثائق جميع جوانب معمارية قاعدة بيانات MySQL 8.x، من متطلبات البيانات إلى أفضل الممارسات التشغيلية.
 
-**المنصة**: MySQL 8.x + InnoDB + phpMyAdmin  
-**المعمارية**: Clean Architecture + Event Sourcing  
+**قاعدة البيانات | Database**: MySQL 8.x + InnoDB + phpMyAdmin  
+**الواجهة الخلفية | Backend**: Laravel 12 + Clean Architecture  
+**الواجهة الأمامية | Frontend**: Flutter + Firebase Analytics  
+**المعمارية**: Clean Architecture + Event Sourcing + Repository Pattern  
 **نموذج البيانات**: Normalized (3NF) مع denormalization استراتيجي  
 **دعم اللغات**: العربية (RTL) + الإنجليزية (LTR)  
 **مستوى الجودة**: مستوى المؤسسات، جاهز للإنتاج
@@ -473,7 +475,10 @@
   - [ملحق أ: المشتريات](Appendices/A_Procurement_Overview.md)
   - [ملحق ب: Redis](Appendices/B_Cache_Strategy.md)
   - [ملحق ج: البحث](Appendices/C_Search_Integration.md)
-  - [ملحق د: أمثلة الكود](Appendices/D_Code_Examples.md)
+  - [ملحق د: أمثلة الكود Laravel 12 & Flutter](Appendices/D_Code_Examples.md)
+  - [ملحق هـ: معمارية Laravel النظيفة](Appendices/E_Laravel_Clean_Architecture.md)
+  - [ملحق و: أفضل ممارسات Laravel](Appendices/F_Laravel_Best_Practices.md)
+  - [ملحق ز: ميزات Laravel المتقدمة](Appendices/G_Laravel_Advanced_Features.md)
 
 ### **الروابط الخارجية | External Links**
 - [🏠 الفهرس الرئيسي للمشروع | Main Project Index](../index.md)
