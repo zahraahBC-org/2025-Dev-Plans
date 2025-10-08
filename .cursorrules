@@ -58,7 +58,7 @@ Follow the content management guidelines in:
 ```
 
 ## ✅ **Quality Standards | معايير الجودة**
-- **Bilingual Support**: All content in Arabic (high priority), English (moderate usage, especially technical terms and code), and Arabic | English for titles
+- **Bilingual Support**: All content in Arabic, English for technical terms and code, and Arabic | English for titles
 - **Enterprise-Grade**: Production-ready quality standards with comprehensive testing
 - **Clean Architecture**: Follow Flutter best practices and SOLID principles
 - **E-commerce Focus**: Specialized for women's fashion e-commerce with business logic
@@ -91,26 +91,24 @@ When working on this project, follow this priority order:
 Follow the universal refactoring guidelines in:
 
 ### **File Size Thresholds | حدود حجم الملفات:**
-- **🟢 Green Zone**: 200-400 lines (optimal) - Keep as is
-- **🟡 Yellow Zone**: 400-500 lines (monitor) - Consider refactoring
-- **🔴 Red Zone**: 500+ lines (must refactor) - Immediate action required
+- **🟢 Green Zone**: 200-600 lines (optimal) - Keep as is
+- **🟡 Yellow Zone**: 600-1000 lines (monitor) - Consider refactoring
+- **🔴 Red Zone**: 1000+ lines (must refactor) - Immediate action required
 
 ### **Refactoring Triggers | محفزات إعادة الهيكلة:**
-- **File > 500 lines**: Automatic refactoring required
-- **File > 400 lines**: Consider refactoring if content is diverse
+- **File > 100 lines**: Automatic refactoring required
+- **File > 600 lines**: Consider refactoring if content is diverse
 - **Multiple related topics**: Split into focused files
 - **Heavy code examples**: Extract to separate files
 - **Complex navigation**: Simplify structure
 - **Duplicate content**: Consolidate into templates
 
 ### **Refactoring Actions | إجراءات إعادة الهيكلة:**
-1. **Split large files** into focused sub-files with clear purposes
-2. **Create sub-folders** when files > 500 lines or multiple related topics
-3. **Extract detailed content** to separate guides for better organization
-4. **Create quick references** for complex topics and common patterns
-5. **Maintain consistent naming** conventions across all files
-6. **Update navigation** links after refactoring
-7. **Verify content integrity** after splitting files
+1. **Extract detailed content** to separate guides for better organization
+2. **Create quick references** for complex topics and common patterns
+3. **Maintain consistent naming** conventions across all files
+4. **Update navigation** links after refactoring
+5. **Verify content integrity** after splitting files
 
 ## 🔗 **Navigation Standards | معايير التنقل**
 Every documentation page must include consistent navigation elements:
