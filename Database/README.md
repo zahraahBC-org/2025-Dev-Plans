@@ -46,14 +46,17 @@
 
 ---
 
-### **📋 الملاحق | Appendices (A-D)**
+### **📋 الملاحق | Appendices (A-G)**
 
 مراجع سريعة وأمثلة عملية:
 
 - **ملحق أ**: نظرة عامة على المشتريات
 - **ملحق ب**: استراتيجية Redis
 - **ملحق ج**: تكامل OpenSearch
-- **ملحق د**: أمثلة كود Flutter وPython
+- **ملحق د**: أمثلة كود Flutter وLaravel 12
+- **ملحق هـ**: معمارية Laravel النظيفة (Clean Architecture)
+- **ملحق و**: أفضل ممارسات Laravel (Services, Repositories, Validation)
+- **ملحق ز**: ميزات Laravel المتقدمة (Jobs, Events, Notifications, Queues)
 
 ---
 

@@ -983,6 +983,473 @@ def process_payment(order_id, amount):
 
 ---
 
+## 11. Laravel Migrations | هجرات Laravel {#laravel-migrations}
+
+### **نظرة عامة | Overview**
+
+Laravel Migrations توفر طريقة منظمة لإدارة تغييرات قاعدة البيانات باستخدام PHP بدلاً من SQL الخام، مع دعم التحكم في الإصدار (Version Control).
+
+### **11.1 Create Orders Table Migration | هجرة إنشاء جدول الطلبات**
+
+```php
+<?php
+
+use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\Schema;
+
+return new class extends Migration
+{
+    /**
+     * تشغيل الهجرة
+     * Run the migrations
+     */
+    public function up(): void
+    {
+        Schema::create('orders', function (Blueprint $table) {
+            // المفتاح الأساسي | Primary Key
+            $table->id();
+            
+            // رقم الطلب | Order Number
+            $table->string('order_no', 20)->unique()->comment('رقم الطلب الفريد');
+            
+            // المفاتيح الخارجية | Foreign Keys
+            $table->foreignId('customer_id')
+                ->constrained('customers')
+                ->onDelete('cascade')
+                ->comment('معرف العميل');
+            
+            $table->foreignId('shipping_address_id')
+                ->constrained('addresses')
+                ->onDelete('restrict')
+                ->comment('عنوان الشحن');
+            
+            $table->foreignId('warehouse_id')
+                ->constrained('warehouses')
+                ->onDelete('restrict')
+                ->comment('المستودع');
+            
+            // المبالغ | Amounts
+            $table->decimal('subtotal', 10, 2)->comment('المجموع الفرعي');
+            $table->decimal('discount_amount', 10, 2)->default(0)->comment('مبلغ الخصم');
+            $table->decimal('tax_amount', 10, 2)->default(0)->comment('مبلغ الضريبة');
+            $table->decimal('shipping_fee', 10, 2)->default(0)->comment('رسوم الشحن');
+            $table->decimal('total', 10, 2)->comment('الإجمالي');
+            $table->char('currency', 3)->default('SAR')->comment('العملة');
+            
+            // الحالة | Status
+            $table->enum('status', [
+                'created', 'paid', 'confirmed', 'packed', 
+                'shipped', 'out_for_delivery', 'delivered',
+                'cancelled', 'failed', 'returned'
+            ])->default('created')->comment('حالة الطلب');
+            
+            // الدفع | Payment
+            $table->enum('payment_method', ['cod', 'online', 'wallet'])
+                ->comment('طريقة الدفع');
+            
+            $table->enum('payment_status', [
+                'pending', 'authorized', 'captured', 'settled', 'refunded', 'failed'
+            ])->default('pending')->comment('حالة الدفع');
+            
+            // إسناد التسويق | Marketing Attribution
+            $table->string('utm_source', 50)->nullable()->comment('مصدر UTM');
+            $table->string('utm_medium', 50)->nullable()->comment('وسيط UTM');
+            $table->string('utm_campaign', 100)->nullable()->comment('حملة UTM');
+            $table->string('utm_term', 100)->nullable()->comment('مصطلح UTM');
+            $table->string('utm_content', 100)->nullable()->comment('محتوى UTM');
+            
+            // الطوابع الزمنية | Timestamps
+            $table->timestamp('paid_at')->nullable()->comment('وقت الدفع');
+            $table->timestamp('confirmed_at')->nullable()->comment('وقت التأكيد');
+            $table->timestamp('packed_at')->nullable()->comment('وقت التعبئة');
+            $table->timestamp('shipped_at')->nullable()->comment('وقت الشحن');
+            $table->timestamp('delivered_at')->nullable()->comment('وقت التوصيل');
+            $table->timestamp('cancelled_at')->nullable()->comment('وقت الإلغاء');
+            
+            // أعمدة التدقيق القياسية | Standard Audit Columns
+            $table->timestamps();
+            $table->softDeletes();
+            
+            // الفهارس | Indexes
+            $table->index(['customer_id', 'created_at'], 'idx_customer_created');
+            $table->index(['status', 'created_at'], 'idx_status_created');
+            $table->index('payment_status', 'idx_payment_status');
+            $table->index('order_no', 'idx_order_no');
+            $table->index('created_at', 'idx_created_at');
+            
+            // فهرس نصي كامل | Full-text Index
+            $table->fullText(['order_no'], 'ft_order_no');
+        });
+        
+        // إضافة تعليق للجدول | Add table comment
+        DB::statement("ALTER TABLE orders COMMENT = 'جدول الطلبات - Orders Table'");
+    }
+
+    /**
+     * عكس الهجرة
+     * Reverse the migrations
+     */
+    public function down(): void
+    {
+        Schema::dropIfExists('orders');
+    }
+};
+```
+
+### **11.2 Create Inventory Ledger Migration | هجرة دفتر المخزون**
+
+```php
+<?php
+
+use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\Schema;
+
+return new class extends Migration
+{
+    public function up(): void
+    {
+        Schema::create('inventory_ledger', function (Blueprint $table) {
+            $table->id('movement_id');
+            
+            // المفاتيح الخارجية | Foreign Keys
+            $table->foreignId('variant_id')
+                ->constrained('product_variants')
+                ->onDelete('restrict')
+                ->comment('معرف النسخة');
+            
+            $table->foreignId('warehouse_id')
+                ->constrained('warehouses')
+                ->onDelete('restrict')
+                ->comment('المستودع');
+            
+            // نوع الحركة | Movement Type
+            $table->enum('movement_type', [
+                'purchase_receipt',    // استلام من المورد
+                'adjustment',          // تعديل يدوي
+                'reservation',         // حجز لطلب
+                'release',             // إلغاء حجز
+                'shipment_captured',   // شحن للعميل
+                'rto_received',        // استلام إرجاع إلى المنشأ
+                'rma_returned',        // استلام مرتجع
+                'damage',              // تلف
+                'theft',               // سرقة
+                'inventory_count'      // جرد فعلي
+            ])->comment('نوع حركة المخزون');
+            
+            // الكمية | Quantity
+            $table->integer('quantity')->comment('الكمية (موجب = زيادة، سالب = نقص)');
+            
+            // المرجع | Reference
+            $table->string('reference_type', 50)->nullable()->comment('نوع المرجع');
+            $table->unsignedBigInteger('reference_id')->nullable()->comment('معرف المرجع');
+            
+            // البيانات الوصفية | Metadata
+            $table->string('reason', 255)->nullable()->comment('السبب');
+            $table->text('notes')->nullable()->comment('ملاحظات');
+            $table->unsignedBigInteger('performed_by')->nullable()->comment('المستخدم المنفذ');
+            
+            // التواريخ | Dates
+            $table->timestamp('movement_date')->comment('تاريخ الحركة');
+            $table->timestamp('created_at')->comment('تاريخ التسجيل');
+            
+            // الفهارس | Indexes
+            $table->index(['variant_id', 'movement_date'], 'idx_variant_date');
+            $table->index(['warehouse_id', 'movement_date'], 'idx_warehouse_date');
+            $table->index(['reference_type', 'reference_id'], 'idx_reference');
+            $table->index('movement_type', 'idx_movement_type');
+            $table->index('movement_date', 'idx_movement_date');
+        });
+        
+        DB::statement("ALTER TABLE inventory_ledger COMMENT = 'دفتر يومية المخزون - Inventory Ledger (Event Sourcing)'");
+    }
+
+    public function down(): void
+    {
+        Schema::dropIfExists('inventory_ledger');
+    }
+};
+```
+
+### **11.3 Create Wallet Transactions Migration | هجرة معاملات المحفظة**
+
+```php
+<?php
+
+use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\Schema;
+
+return new class extends Migration
+{
+    public function up(): void
+    {
+        Schema::create('wallet_transactions', function (Blueprint $table) {
+            $table->uuid('transaction_id')->primary();
+            
+            // المفاتيح الخارجية | Foreign Keys
+            $table->foreignId('wallet_id')
+                ->constrained('wallets')
+                ->onDelete('cascade');
+            
+            $table->foreignId('customer_id')
+                ->constrained('customers')
+                ->onDelete('cascade');
+            
+            // نوع المعاملة | Transaction Type
+            $table->enum('type', ['credit', 'debit', 'hold', 'release'])
+                ->comment('نوع المعاملة');
+            
+            // المبلغ | Amount
+            $table->decimal('amount', 10, 2)->comment('مبلغ المعاملة');
+            $table->char('currency', 3)->default('SAR');
+            
+            // المصدر | Source
+            $table->enum('source', [
+                'refund', 'cashback', 'gift', 'topup', 
+                'purchase', 'promo', 'loyalty'
+            ])->comment('مصدر المعاملة');
+            
+            // المرجع | Reference
+            $table->string('reference_type', 50)->nullable();
+            $table->unsignedBigInteger('reference_id')->nullable();
+            
+            // الحالة | Status
+            $table->enum('status', ['pending', 'posted', 'cancelled'])
+                ->default('pending')
+                ->comment('حالة المعاملة');
+            
+            // الأرصدة | Balances (للتدقيق)
+            $table->decimal('balance_before', 10, 2)->comment('الرصيد قبل المعاملة');
+            $table->decimal('balance_after', 10, 2)->comment('الرصيد بعد المعاملة');
+            
+            // البيانات الوصفية | Metadata
+            $table->string('reason_code', 50)->nullable();
+            $table->text('notes')->nullable();
+            $table->enum('performed_by_type', ['system', 'admin', 'customer'])->default('system');
+            $table->unsignedBigInteger('performed_by_id')->nullable();
+            
+            // التواريخ | Dates
+            $table->timestamp('transaction_date')->comment('تاريخ المعاملة');
+            $table->timestamp('posted_at')->nullable()->comment('تاريخ الترحيل');
+            $table->timestamp('created_at');
+            
+            // الفهارس | Indexes
+            $table->index(['wallet_id', 'transaction_date'], 'idx_wallet_date');
+            $table->index(['customer_id', 'transaction_date'], 'idx_customer_date');
+            $table->index(['reference_type', 'reference_id'], 'idx_reference');
+            $table->index('type', 'idx_type');
+            $table->index('status', 'idx_status');
+        });
+        
+        DB::statement("ALTER TABLE wallet_transactions COMMENT = 'معاملات المحفظة - Wallet Transactions (Ledger Pattern)'");
+    }
+
+    public function down(): void
+    {
+        Schema::dropIfExists('wallet_transactions');
+    }
+};
+```
+
+### **11.4 Add Column Migration | هجرة إضافة عمود**
+
+```php
+<?php
+
+use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\Schema;
+
+return new class extends Migration
+{
+    /**
+     * إضافة عمود discount_percentage إلى جدول orders
+     * Add discount_percentage column to orders table
+     */
+    public function up(): void
+    {
+        Schema::table('orders', function (Blueprint $table) {
+            $table->decimal('discount_percentage', 5, 2)
+                ->after('discount_amount')
+                ->nullable()
+                ->comment('نسبة الخصم المطبقة');
+        });
+    }
+
+    public function down(): void
+    {
+        Schema::table('orders', function (Blueprint $table) {
+            $table->dropColumn('discount_percentage');
+        });
+    }
+};
+```
+
+### **11.5 Modify Column Migration | هجرة تعديل عمود**
+
+```php
+<?php
+
+use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\Schema;
+
+return new class extends Migration
+{
+    /**
+     * زيادة طول عمود order_no
+     * Increase order_no column length
+     */
+    public function up(): void
+    {
+        Schema::table('orders', function (Blueprint $table) {
+            $table->string('order_no', 30)->change();
+        });
+    }
+
+    public function down(): void
+    {
+        Schema::table('orders', function (Blueprint $table) {
+            $table->string('order_no', 20)->change();
+        });
+    }
+};
+```
+
+### **11.6 Create Index Migration | هجرة إنشاء فهرس**
+
+```php
+<?php
+
+use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\Schema;
+
+return new class extends Migration
+{
+    /**
+     * إضافة فهرس مركب على orders
+     * Add composite index on orders
+     */
+    public function up(): void
+    {
+        Schema::table('orders', function (Blueprint $table) {
+            $table->index(
+                ['customer_id', 'status', 'created_at'],
+                'idx_customer_status_created'
+            );
+        });
+    }
+
+    public function down(): void
+    {
+        Schema::table('orders', function (Blueprint $table) {
+            $table->dropIndex('idx_customer_status_created');
+        });
+    }
+};
+```
+
+### **11.7 أفضل ممارسات Laravel Migrations | Migration Best Practices**
+
+#### **✅ Do's | افعل**
+
+```php
+// 1. استخدم أسماء واضحة للهجرات
+// Use descriptive migration names
+php artisan make:migration create_orders_table
+php artisan make:migration add_discount_to_orders_table
+php artisan make:migration create_customer_segments_pivot_table
+
+// 2. أضف تعليقات للأعمدة
+$table->string('order_no')->comment('رقم الطلب الفريد');
+
+// 3. حدد القيود بوضوح
+$table->foreignId('customer_id')
+    ->constrained()
+    ->onDelete('cascade')
+    ->onUpdate('cascade');
+
+// 4. استخدم الأنواع المناسبة
+$table->decimal('total', 10, 2);  // للأموال
+$table->enum('status', ['active', 'inactive']);  // للحالات المحدودة
+$table->json('metadata');  // للبيانات المنظمة
+
+// 5. أضف الفهارس للأعمدة المستخدمة في WHERE و JOIN
+$table->index('email');
+$table->index(['customer_id', 'created_at']);
+
+// 6. استخدم softDeletes() للحذف الناعم
+$table->softDeletes();
+
+// 7. دائماً قدم down() method
+public function down(): void
+{
+    Schema::dropIfExists('orders');
+}
+```
+
+#### **❌ Don'ts | لا تفعل**
+
+```php
+// 1. لا تعدل هجرات تم تشغيلها في الإنتاج
+// DON'T modify migrations already run in production
+
+// 2. لا تستخدم Model في الهجرات
+// DON'T use Models in migrations
+public function up()
+{
+    Order::create([...]); // ❌ BAD
+    DB::table('orders')->insert([...]); // ✅ GOOD
+}
+
+// 3. لا تنسى Foreign Key Constraints
+$table->unsignedBigInteger('customer_id'); // ❌ Missing constraint
+$table->foreignId('customer_id')->constrained(); // ✅ Good
+
+// 4. لا تستخدم الأنواع الخاطئة
+$table->float('price'); // ❌ لا تستخدم float للأموال
+$table->decimal('price', 10, 2); // ✅ استخدم decimal
+
+// 5. لا تترك الهجرات بدون rollback
+public function down()
+{
+    // ❌ Empty or missing
+}
+```
+
+### **11.8 تشغيل الهجرات | Running Migrations**
+
+```bash
+# تشغيل جميع الهجرات الجديدة
+# Run all pending migrations
+php artisan migrate
+
+# التراجع عن آخر دفعة من الهجرات
+# Rollback last batch of migrations
+php artisan migrate:rollback
+
+# التراجع عن آخر X دفعة
+# Rollback last X batches
+php artisan migrate:rollback --step=2
+
+# إعادة تشغيل جميع الهجرات (خطير!)
+# Refresh all migrations (DANGEROUS!)
+php artisan migrate:refresh
+
+# التحقق من حالة الهجرات
+# Check migration status
+php artisan migrate:status
+
+# تشغيل الهجرات في الإنتاج (يتطلب تأكيد)
+# Run migrations in production (requires confirmation)
+php artisan migrate --force
+```
+
+---
+
 ## 🔗 **التنقل | Navigation**
 
 [← السابق: 03. إعدادات MySQL | Previous: MySQL Configuration](03_MySQL_Configuration.md)
