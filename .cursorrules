@@ -26,6 +26,7 @@ When working on this project, always use the AI agent specialization defined in:
 Follow the content management guidelines in:
 - `AI_Agent_Tools/AI_Agent_Content_Management_Guide.md` - For handling duplications and organization
 - `AI_Agent_Tools/Universal_Plan_Review_Framework.md` - For reviewing and improving any plan
+- `AI_Agent_Tools/Content_Formatting_Rules.md` - For emoji usage and code snippet standards
 
 ### **Content Quality Standards | معايير جودة المحتوى**
 - **No Duplication**: Use template references instead of duplicating content
@@ -33,6 +34,8 @@ Follow the content management guidelines in:
 - **Template System**: Create master templates for shared content
 - **Quality Gates**: Ensure all content meets enterprise standards
 - **Consistent Formatting**: Uniform professional presentation
+- **Code Examples**: Use only necessary code snippets instead of full code examples. Focus on illustrating specific concepts with minimal, targeted code rather than complete implementations (see Content_Formatting_Rules.md)
+- **Minimal Emojis**: Use emojis sparingly and only when necessary for clarity or emphasis. Keep emoji usage to a minimum to maintain professional documentation standards (see Content_Formatting_Rules.md)
 
 ## 🏗️ **Project Structure | هيكل المشروع**
 ```
@@ -74,10 +77,11 @@ When working on this project, follow this priority order:
 2. **Apply Flutter best practices** and Clean Architecture principles
 3. **Maintain bilingual format** (Arabic/English) throughout all content
 4. **Ensure enterprise-grade** quality standards in all outputs
+5. **Use minimal emojis** - only when necessary for clarity or emphasis, maintain professional tone
 
 ### **Secondary Actions | الإجراءات الثانوية**
-5. **Use content management guide** for duplication and organization issues
-6. **Apply universal review framework** for plan improvements
+6. **Use content management guide** for duplication and organization issues
+7. **Apply universal review framework** for plan improvements
 8. **Ensure navigation standards** are met on every page
 9. **Follow e-commerce domain** specific guidelines and patterns
 

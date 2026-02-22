@@ -1,0 +1,626 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>README</title>
+    
+        <style>
+            @page { size: A4 portrait; margin: 2.5cm; }
+            body { 
+                font-family: 'IBM Plex Sans Arabic', Cairo, Calibri, Arial, sans-serif;
+                max-width: 100%;
+                margin: 0 auto;
+                padding: 20px;
+                direction: rtl;
+                text-align: right;
+                background: white;  /* إصلاح: خلفية بيضاء */
+            }
+            .container {
+                background: white;
+                padding: 40px;
+                max-width: 100%;
+            }
+        </style>
+        
+</head>
+<body>
+    <div class="container">
+        <h1 style="font-size:16pt;font-weight:bold;color:#2563eb;border-bottom:2px solid #3b82f6;padding-bottom:0.3em;margin:0;margin-bottom:1em;display:block;">APIs v2 — معايير تطوير APIs الاحترافية | Professional API Development Standards</h1>
+<strong>النطاق | Scope</strong>: RESTful APIs للاستهلاك الداخلي | Internal APIs  
+
+<hr style="border:none;height:2px;background:linear-gradient(90deg,transparent,#3b82f6,transparent);margin:2em 0;">
+
+<p style="margin:0;padding:0;line-height:0.1;"> </p><h2 style="font-size:13pt;font-weight:bold;color:#1e40af;border-bottom:1px solid #60a5fa;padding-bottom:0.2em;margin-top:1em;margin-bottom:0.5em;display:block;"><strong>نظرة عامة | Overview</strong></h2>
+
+<p style="font-size:11pt;margin:0.3em 0;line-height:1.15;">هذا المستند هو <strong>وثيقة معايير عالمية احترافية</strong> شاملة لتطوير RESTful APIs للاستهلاك الداخلي.</p>
+
+<p style="margin:0;padding:0;line-height:0.1;"> </p><h3 style="font-size:11pt;font-weight:bold;color:#1e3a8a;margin-top:0.8em;margin-bottom:0.5em;display:block;"><strong>الغرض الرئيسي | Main Purpose</strong></h3>
+
+<p style="font-size:11pt;margin:0.3em 0;line-height:1.15;">وثيقة مرجعية توفر:</p>
+<ul style="font-size:11pt;margin:0.5em 0;padding-right:2em;line-height:1.15;">
+<li style="margin:0.2em 0;"><strong>معايير عالمية</strong> لتطوير APIs احترافية (REST, Security, Performance)</li>
+<li style="margin:0.2em 0;"><strong>أفضل الممارسات</strong> المعتمدة دولياً (OWASP, Industry Standards)</li>
+<li style="margin:0.2em 0;"><strong>أداة تقييم</strong> شاملة (Audit Checklist - 151 معيار)</li>
+<li style="margin:0.2em 0;"><strong>قوالب ونماذج</strong> جاهزة للتطبيق (Code Templates)</li>
+<li style="margin:0.2em 0;"><strong>دليل تحسين</strong> منظم ومنهجي (Progressive Improvement)</li>
+
+</ul>
+<hr style="border:none;height:2px;background:linear-gradient(90deg,transparent,#3b82f6,transparent);margin:2em 0;">
+
+<p style="margin:0;padding:0;line-height:0.1;"> </p><h3 style="font-size:11pt;font-weight:bold;color:#1e3a8a;margin-top:0.8em;margin-bottom:0.5em;display:block;"><strong>الاستخدامات | Use Cases</strong></h3>
+
+<p style="font-size:11pt;margin:0.3em 0;line-height:1.15;">هذه المعايير قابلة للتطبيق على:</p>
+
+<ul style="font-size:11pt;margin:0.5em 0;padding-right:2em;line-height:1.15;">
+<li style="margin:0.2em 0;"><strong>تقييم</strong> APIs موجودة مقابل المعايير العالمية</li>
+<li style="margin:0.2em 0;"><strong>تحسين</strong> APIs حالية بشكل تدريجي ومنظم</li>
+<li style="margin:0.2em 0;"><strong>بناء</strong> APIs جديدة من الصفر باحترافية</li>
+<li style="margin:0.2em 0;"><strong>مرجع دائم</strong> للفريق والمطورين الجدد</li>
+<li style="margin:0.2em 0;"><strong>توسيع</strong> APIs بإضافات جديدة بشكل صحيح</li>
+<li style="margin:0.2em 0;"><strong>تدريب</strong> المطورين على Best Practices</li>
+
+</ul>
+<hr style="border:none;height:2px;background:linear-gradient(90deg,transparent,#3b82f6,transparent);margin:2em 0;">
+
+<p style="margin:0;padding:0;line-height:0.1;"> </p><h3 style="font-size:11pt;font-weight:bold;color:#1e3a8a;margin-top:0.8em;margin-bottom:0.5em;display:block;"><strong>لمن هذه الوثيقة؟ | Who Is This For?</strong></h3>
+
+<ul style="font-size:11pt;margin:0.5em 0;padding-right:2em;line-height:1.15;">
+<li style="margin:0.2em 0;"><strong>Backend Developers</strong> - للتطوير اليومي</li>
+<li style="margin:0.2em 0;"><strong>Tech Leads/Architects</strong> - للتصميم والمراجعة</li>
+<li style="margin:0.2em 0;"><strong>DevOps/SRE</strong> - للإطلاق والمراقبة</li>
+<li style="margin:0.2em 0;"><strong>QA Engineers</strong> - للاختبارات والجودة</li>
+<li style="margin:0.2em 0;"><strong>Mobile Developers</strong> - لفهم APIs والتكامل</li>
+<li style="margin:0.2em 0;"><strong>Product Managers</strong> - لفهم الإمكانيات والقيود</li>
+
+</ul>
+<hr style="border:none;height:2px;background:linear-gradient(90deg,transparent,#3b82f6,transparent);margin:2em 0;">
+
+<p style="margin:0;padding:0;line-height:0.1;"> </p><h2 style="font-size:13pt;font-weight:bold;color:#1e40af;border-bottom:1px solid #60a5fa;padding-bottom:0.2em;margin-top:1em;margin-bottom:0.5em;display:block;"><strong>الفرق عن الإصدار الأول | Difference from v1</strong></h2>
+
+<table style="width:100%;border-collapse:collapse;margin:1em 0;font-size:10pt;"><thead><tr><th style="background:#3b82f6;color:white;font-weight:bold;border:1px solid #e2e8f0;padding:8px 10px;text-align:center;font-size:10pt;">المعيار</th><th style="background:#3b82f6;color:white;font-weight:bold;border:1px solid #e2e8f0;padding:8px 10px;text-align:center;font-size:10pt;">APIs v1</th><th style="background:#3b82f6;color:white;font-weight:bold;border:1px solid #e2e8f0;padding:8px 10px;text-align:center;font-size:10pt;">APIs v2</th></tr></thead><tbody><tr style="background:#f8fafc;"><td style="border:1px solid #e2e8f0;padding:6px 10px;text-align:right;font-size:10pt;"><strong>الغرض</strong></td><td style="border:1px solid #e2e8f0;padding:6px 10px;text-align:right;font-size:10pt;">بناء شامل (داخلي + شركاء)</td><td style="border:1px solid #e2e8f0;padding:6px 10px;text-align:right;font-size:10pt;"><strong>معايير عامة للداخلي</strong></td></tr><tr style="background:white;"><td style="border:1px solid #e2e8f0;padding:6px 10px;text-align:right;font-size:10pt;"><strong>النطاق</strong></td><td style="border:1px solid #e2e8f0;padding:6px 10px;text-align:right;font-size:10pt;">داخلي + شركاء + SDK + Webhooks</td><td style="border:1px solid #e2e8f0;padding:6px 10px;text-align:right;font-size:10pt;"><strong>داخلي فقط (App + Admin)</strong></td></tr><tr style="background:#f8fafc;"><td style="border:1px solid #e2e8f0;padding:6px 10px;text-align:right;font-size:10pt;"><strong>الهيكل</strong></td><td style="border:1px solid #e2e8f0;padding:6px 10px;text-align:right;font-size:10pt;">ملف واحد (3789 سطر)</td><td style="border:1px solid #e2e8f0;padding:6px 10px;text-align:right;font-size:10pt;"><strong>منظم في 50+ ملف</strong></td></tr><tr style="background:white;"><td style="border:1px solid #e2e8f0;padding:6px 10px;text-align:right;font-size:10pt;"><strong>المنصة</strong></td><td style="border:1px solid #e2e8f0;padding:6px 10px;text-align:right;font-size:10pt;">نظري عام</td><td style="border:1px solid #e2e8f0;padding:6px 10px;text-align:right;font-size:10pt;"><strong>عملي قابل للتطبيق</strong></td></tr><tr style="background:#f8fafc;"><td style="border:1px solid #e2e8f0;padding:6px 10px;text-align:right;font-size:10pt;"><strong>المصادقة</strong></td><td style="border:1px solid #e2e8f0;padding:6px 10px;text-align:right;font-size:10pt;">JWT + OAuth2 + API Keys</td><td style="border:1px solid #e2e8f0;padding:6px 10px;text-align:right;font-size:10pt;"><strong>JWT/Sanctum بسيط</strong></td></tr><tr style="background:white;"><td style="border:1px solid #e2e8f0;padding:6px 10px;text-align:right;font-size:10pt;"><strong>التعقيد</strong></td><td style="border:1px solid #e2e8f0;padding:6px 10px;text-align:right;font-size:10pt;">عالي جداً (⭐⭐⭐⭐⭐)</td><td style="border:1px solid #e2e8f0;padding:6px 10px;text-align:right;font-size:10pt;"><strong>متوسط (⭐⭐⭐)</strong></td></tr><tr style="background:#f8fafc;"><td style="border:1px solid #e2e8f0;padding:6px 10px;text-align:right;font-size:10pt;"><strong>Webhooks</strong></td><td style="border:1px solid #e2e8f0;padding:6px 10px;text-align:right;font-size:10pt;">للشركاء الخارجيين</td><td style="border:1px solid #e2e8f0;padding:6px 10px;text-align:right;font-size:10pt;"><strong>داخلي فقط/غير مطلوب</strong></td></tr><tr style="background:white;"><td style="border:1px solid #e2e8f0;padding:6px 10px;text-align:right;font-size:10pt;"><strong>SDK Generation</strong></td><td style="border:1px solid #e2e8f0;padding:6px 10px;text-align:right;font-size:10pt;">توليد تلقائي</td><td style="border:1px solid #e2e8f0;padding:6px 10px;text-align:right;font-size:10pt;"><strong>غير مطلوب</strong></td></tr><tr style="background:#f8fafc;"><td style="border:1px solid #e2e8f0;padding:6px 10px;text-align:right;font-size:10pt;"><strong>Developer Portal</strong></td><td style="border:1px solid #e2e8f0;padding:6px 10px;text-align:right;font-size:10pt;">عام وخارجي</td><td style="border:1px solid #e2e8f0;padding:6px 10px;text-align:right;font-size:10pt;"><strong>داخلي فقط</strong></td></tr><tr style="background:white;"><td style="border:1px solid #e2e8f0;padding:6px 10px;text-align:right;font-size:10pt;"><strong>Audit Tool</strong></td><td style="border:1px solid #e2e8f0;padding:6px 10px;text-align:right;font-size:10pt;">❌ غير متوفر</td><td style="border:1px solid #e2e8f0;padding:6px 10px;text-align:right;font-size:10pt;"><strong>✅ 151 معيار</strong></td></tr><tr style="background:#f8fafc;"><td style="border:1px solid #e2e8f0;padding:6px 10px;text-align:right;font-size:10pt;"><strong>Code Examples</strong></td><td style="border:1px solid #e2e8f0;padding:6px 10px;text-align:right;font-size:10pt;">نظري عام</td><td style="border:1px solid #e2e8f0;padding:6px 10px;text-align:right;font-size:10pt;"><strong>Laravel عملي</strong></td></tr><tr style="background:white;"><td style="border:1px solid #e2e8f0;padding:6px 10px;text-align:right;font-size:10pt;"><strong>قابلية التطبيق</strong></td><td style="border:1px solid #e2e8f0;padding:6px 10px;text-align:right;font-size:10pt;">يحتاج تعديل كبير</td><td style="border:1px solid #e2e8f0;padding:6px 10px;text-align:right;font-size:10pt;"><strong>جاهز للتطبيق مباشرة</strong></td></tr></tbody></table>
+<hr style="border:none;height:2px;background:linear-gradient(90deg,transparent,#3b82f6,transparent);margin:2em 0;">
+
+<p style="margin:0;padding:0;line-height:0.1;"> </p><h3 style="font-size:11pt;font-weight:bold;color:#1e3a8a;margin-top:0.8em;margin-bottom:0.5em;display:block;"><strong>التكلفة والوقت | Cost & Time Comparison</strong></h3>
+
+<table style="width:100%;border-collapse:collapse;margin:1em 0;font-size:10pt;"><thead><tr><th style="background:#3b82f6;color:white;font-weight:bold;border:1px solid #e2e8f0;padding:8px 10px;text-align:center;font-size:10pt;">المعيار</th><th style="background:#3b82f6;color:white;font-weight:bold;border:1px solid #e2e8f0;padding:8px 10px;text-align:center;font-size:10pt;">v1</th><th style="background:#3b82f6;color:white;font-weight:bold;border:1px solid #e2e8f0;padding:8px 10px;text-align:center;font-size:10pt;">v2</th></tr></thead><tbody><tr style="background:#f8fafc;"><td style="border:1px solid #e2e8f0;padding:6px 10px;text-align:right;font-size:10pt;"><strong>للفهم والقراءة</strong></td><td style="border:1px solid #e2e8f0;padding:6px 10px;text-align:right;font-size:10pt;">2-3 أيام</td><td style="border:1px solid #e2e8f0;padding:6px 10px;text-align:right;font-size:10pt;"><strong>2-3 ساعات</strong></td></tr><tr style="background:white;"><td style="border:1px solid #e2e8f0;padding:6px 10px;text-align:right;font-size:10pt;"><strong>للتقييم</strong></td><td style="border:1px solid #e2e8f0;padding:6px 10px;text-align:right;font-size:10pt;">غير محدد</td><td style="border:1px solid #e2e8f0;padding:6px 10px;text-align:right;font-size:10pt;"><strong>1-2 ساعات</strong></td></tr><tr style="background:#f8fafc;"><td style="border:1px solid #e2e8f0;padding:6px 10px;text-align:right;font-size:10pt;"><strong>للتحسين</strong></td><td style="border:1px solid #e2e8f0;padding:6px 10px;text-align:right;font-size:10pt;">غير واضح</td><td style="border:1px solid #e2e8f0;padding:6px 10px;text-align:right;font-size:10pt;"><strong>6 أسابيع واضحة</strong></td></tr><tr style="background:white;"><td style="border:1px solid #e2e8f0;padding:6px 10px;text-align:right;font-size:10pt;"><strong>للبناء من الصفر</strong></td><td style="border:1px solid #e2e8f0;padding:6px 10px;text-align:right;font-size:10pt;">3-4 أشهر</td><td style="border:1px solid #e2e8f0;padding:6px 10px;text-align:right;font-size:10pt;"><strong>7-10 أسابيع</strong></td></tr><tr style="background:#f8fafc;"><td style="border:1px solid #e2e8f0;padding:6px 10px;text-align:right;font-size:10pt;"><strong>حجم الفريق</strong></td><td style="border:1px solid #e2e8f0;padding:6px 10px;text-align:right;font-size:10pt;">5-7 مطورين</td><td style="border:1px solid #e2e8f0;padding:6px 10px;text-align:right;font-size:10pt;"><strong>2-4 مطورين</strong></td></tr></tbody></table>
+<hr style="border:none;height:2px;background:linear-gradient(90deg,transparent,#3b82f6,transparent);margin:2em 0;">
+
+<p style="margin:0;padding:0;line-height:0.1;"> </p><h3 style="font-size:11pt;font-weight:bold;color:#1e3a8a;margin-top:0.8em;margin-bottom:0.5em;display:block;"><strong>متى تستخدم v2؟</strong></h3>
+
+<strong>استخدم v2 إذا:</strong>
+<ul style="font-size:11pt;margin:0.5em 0;padding-right:2em;line-height:1.15;">
+<li style="margin:0.2em 0;">تطبيقك للاستهلاك الداخلي فقط (Mobile + Admin)</li>
+<li style="margin:0.2em 0;">تريد معايير عامة وعالمية</li>
+<li style="margin:0.2em 0;">تحتاج أداة تقييم وتحسين شاملة</li>
+<li style="margin:0.2em 0;">تستخدم Authentication بسيط (JWT/Sanctum)</li>
+
+</ul>
+<strong>استخدم v1 إذا:</strong>
+<ul style="font-size:11pt;margin:0.5em 0;padding-right:2em;line-height:1.15;">
+<li style="margin:0.2em 0;">تحتاج تكاملات شركاء خارجيين (B2B)</li>
+<li style="margin:0.2em 0;">تحتاج OAuth2 كامل + Developer Portal</li>
+<li style="margin:0.2em 0;">تحتاج Webhooks للشركاء</li>
+<li style="margin:0.2em 0;">تحتاج SDK generation تلقائي</li>
+
+</ul>
+<hr style="border:none;height:2px;background:linear-gradient(90deg,transparent,#3b82f6,transparent);margin:2em 0;">
+
+<p style="margin:0;padding:0;line-height:0.1;"> </p><h2 style="font-size:13pt;font-weight:bold;color:#1e40af;border-bottom:1px solid #60a5fa;padding-bottom:0.2em;margin-top:1em;margin-bottom:0.5em;display:block;"><strong>هيكل المشروع | Project Structure</strong></h2>
+
+<div style="width:100%;max-width:100%;overflow-x:auto;margin:1em 0;"><table style="width:100%;border-collapse:collapse;background:#282c34;font-family:Consolas,monospace;font-size:10pt;color:#abb2bf;direction:ltr;text-align:left;border:2px solid #3b82f6;table-layout:auto;"><tr style="background:#282c34;"><td style="background:#21252b;color:#5c6370;text-align:right;padding:4px 8px;border:none;width:40px;min-width:40px;font-family:Consolas,monospace;direction:ltr;vertical-align:top;">1</td><td style="padding:4px 12px;border:none;white-space:normal;font-family:Consolas,monospace;color:#abb2bf;direction:ltr;text-align:left;">APIs_v2/</td></tr><tr style="background:#282c34;"><td style="background:#21252b;color:#5c6370;text-align:right;padding:4px 8px;border:none;width:40px;min-width:40px;font-family:Consolas,monospace;direction:ltr;vertical-align:top;">2</td><td style="padding:4px 12px;border:none;white-space:normal;font-family:Consolas,monospace;color:#abb2bf;direction:ltr;text-align:left;">├── README.md                               ← ابدأ من هنا</td></tr><tr style="background:#282c34;"><td style="background:#21252b;color:#5c6370;text-align:right;padding:4px 8px;border:none;width:40px;min-width:40px;font-family:Consolas,monospace;direction:ltr;vertical-align:top;">3</td><td style="padding:4px 12px;border:none;white-space:normal;font-family:Consolas,monospace;color:#abb2bf;direction:ltr;text-align:left;">├── QUICK_START.md                          ← دليل البدء السريع (30 دقيقة)</td></tr><tr style="background:#282c34;"><td style="background:#21252b;color:#5c6370;text-align:right;padding:4px 8px;border:none;width:40px;min-width:40px;font-family:Consolas,monospace;direction:ltr;vertical-align:top;">4</td><td style="padding:4px 12px;border:none;white-space:normal;font-family:Consolas,monospace;color:#abb2bf;direction:ltr;text-align:left;">├── index.md                                ← فهرس كامل لجميع الملفات</td></tr><tr style="background:#282c34;"><td style="background:#21252b;color:#5c6370;text-align:right;padding:4px 8px;border:none;width:40px;min-width:40px;font-family:Consolas,monospace;direction:ltr;vertical-align:top;">5</td><td style="padding:4px 12px;border:none;white-space:normal;font-family:Consolas,monospace;color:#abb2bf;direction:ltr;text-align:left;">├── COMPARISON_V1_VS_V2.md                  ← مقارنة مع v1</td></tr><tr style="background:#282c34;"><td style="background:#21252b;color:#5c6370;text-align:right;padding:4px 8px;border:none;width:40px;min-width:40px;font-family:Consolas,monospace;direction:ltr;vertical-align:top;">6</td><td style="padding:4px 12px;border:none;white-space:normal;font-family:Consolas,monospace;color:#abb2bf;direction:ltr;text-align:left;">├── COMPLETION_SUMMARY.md                   ← ملخص الإنجاز</td></tr><tr style="background:#282c34;"><td style="background:#21252b;color:#5c6370;text-align:right;padding:4px 8px;border:none;width:40px;min-width:40px;font-family:Consolas,monospace;direction:ltr;vertical-align:top;">7</td><td style="padding:4px 12px;border:none;white-space:normal;font-family:Consolas,monospace;color:#abb2bf;direction:ltr;text-align:left;">├── EXECUTIVE_SUMMARY.md                    ← ملخص تنفيذي</td></tr><tr style="background:#282c34;"><td style="background:#21252b;color:#5c6370;text-align:right;padding:4px 8px;border:none;width:40px;min-width:40px;font-family:Consolas,monospace;direction:ltr;vertical-align:top;">8</td><td style="padding:4px 12px;border:none;white-space:normal;font-family:Consolas,monospace;color:#abb2bf;direction:ltr;text-align:left;">│</td></tr><tr style="background:#282c34;"><td style="background:#21252b;color:#5c6370;text-align:right;padding:4px 8px;border:none;width:40px;min-width:40px;font-family:Consolas,monospace;direction:ltr;vertical-align:top;">9</td><td style="padding:4px 12px;border:none;white-space:normal;font-family:Consolas,monospace;color:#abb2bf;direction:ltr;text-align:left;">├── 00-Master/                              # ⭐ الأدلة الرئيسية</td></tr><tr style="background:#282c34;"><td style="background:#21252b;color:#5c6370;text-align:right;padding:4px 8px;border:none;width:40px;min-width:40px;font-family:Consolas,monospace;direction:ltr;vertical-align:top;">10</td><td style="padding:4px 12px;border:none;white-space:normal;font-family:Consolas,monospace;color:#abb2bf;direction:ltr;text-align:left;">│   ├── 00_Master_API_Guide.md              ← الدليل الشامل (29KB)</td></tr><tr style="background:#282c34;"><td style="background:#21252b;color:#5c6370;text-align:right;padding:4px 8px;border:none;width:40px;min-width:40px;font-family:Consolas,monospace;direction:ltr;vertical-align:top;">11</td><td style="padding:4px 12px;border:none;white-space:normal;font-family:Consolas,monospace;color:#abb2bf;direction:ltr;text-align:left;">│   ├── 01_APIs_Audit_Checklist.md          ←  151 معيار (15KB)</td></tr><tr style="background:#282c34;"><td style="background:#21252b;color:#5c6370;text-align:right;padding:4px 8px;border:none;width:40px;min-width:40px;font-family:Consolas,monospace;direction:ltr;vertical-align:top;">12</td><td style="padding:4px 12px;border:none;white-space:normal;font-family:Consolas,monospace;color:#abb2bf;direction:ltr;text-align:left;">│   └── 02_Improvement_Tracking.md          ← 📈 خطة التحسين (9KB)</td></tr><tr style="background:#282c34;"><td style="background:#21252b;color:#5c6370;text-align:right;padding:4px 8px;border:none;width:40px;min-width:40px;font-family:Consolas,monospace;direction:ltr;vertical-align:top;">13</td><td style="padding:4px 12px;border:none;white-space:normal;font-family:Consolas,monospace;color:#abb2bf;direction:ltr;text-align:left;">│</td></tr><tr style="background:#282c34;"><td style="background:#21252b;color:#5c6370;text-align:right;padding:4px 8px;border:none;width:40px;min-width:40px;font-family:Consolas,monospace;direction:ltr;vertical-align:top;">14</td><td style="padding:4px 12px;border:none;white-space:normal;font-family:Consolas,monospace;color:#abb2bf;direction:ltr;text-align:left;">├── 01-Architecture/                        # البنية المعمارية</td></tr><tr style="background:#282c34;"><td style="background:#21252b;color:#5c6370;text-align:right;padding:4px 8px;border:none;width:40px;min-width:40px;font-family:Consolas,monospace;direction:ltr;vertical-align:top;">15</td><td style="padding:4px 12px;border:none;white-space:normal;font-family:Consolas,monospace;color:#abb2bf;direction:ltr;text-align:left;">│   ├── 01_Architecture_Overview.md         ← نظرة معمارية شاملة</td></tr><tr style="background:#282c34;"><td style="background:#21252b;color:#5c6370;text-align:right;padding:4px 8px;border:none;width:40px;min-width:40px;font-family:Consolas,monospace;direction:ltr;vertical-align:top;">16</td><td style="padding:4px 12px;border:none;white-space:normal;font-family:Consolas,monospace;color:#abb2bf;direction:ltr;text-align:left;">│   ├── 02_Laravel_Structure.md             ← تنظيم Laravel (اختياري)</td></tr><tr style="background:#282c34;"><td style="background:#21252b;color:#5c6370;text-align:right;padding:4px 8px;border:none;width:40px;min-width:40px;font-family:Consolas,monospace;direction:ltr;vertical-align:top;">17</td><td style="padding:4px 12px;border:none;white-space:normal;font-family:Consolas,monospace;color:#abb2bf;direction:ltr;text-align:left;">│   ├── 03_API_Design_Principles.md         ← مبادئ تصميم REST</td></tr><tr style="background:#282c34;"><td style="background:#21252b;color:#5c6370;text-align:right;padding:4px 8px;border:none;width:40px;min-width:40px;font-family:Consolas,monospace;direction:ltr;vertical-align:top;">18</td><td style="padding:4px 12px;border:none;white-space:normal;font-family:Consolas,monospace;color:#abb2bf;direction:ltr;text-align:left;">│   ├── 04_API_Gateway.md                   ← بوابة API 🟡 جديد</td></tr><tr style="background:#282c34;"><td style="background:#21252b;color:#5c6370;text-align:right;padding:4px 8px;border:none;width:40px;min-width:40px;font-family:Consolas,monospace;direction:ltr;vertical-align:top;">19</td><td style="padding:4px 12px;border:none;white-space:normal;font-family:Consolas,monospace;color:#abb2bf;direction:ltr;text-align:left;">│   └── index.md</td></tr><tr style="background:#282c34;"><td style="background:#21252b;color:#5c6370;text-align:right;padding:4px 8px;border:none;width:40px;min-width:40px;font-family:Consolas,monospace;direction:ltr;vertical-align:top;">20</td><td style="padding:4px 12px;border:none;white-space:normal;font-family:Consolas,monospace;color:#abb2bf;direction:ltr;text-align:left;">│</td></tr><tr style="background:#282c34;"><td style="background:#21252b;color:#5c6370;text-align:right;padding:4px 8px;border:none;width:40px;min-width:40px;font-family:Consolas,monospace;direction:ltr;vertical-align:top;">21</td><td style="padding:4px 12px;border:none;white-space:normal;font-family:Consolas,monospace;color:#abb2bf;direction:ltr;text-align:left;">├── 02-Authentication/                      # المصادقة والتخويل</td></tr><tr style="background:#282c34;"><td style="background:#21252b;color:#5c6370;text-align:right;padding:4px 8px;border:none;width:40px;min-width:40px;font-family:Consolas,monospace;direction:ltr;vertical-align:top;">22</td><td style="padding:4px 12px;border:none;white-space:normal;font-family:Consolas,monospace;color:#abb2bf;direction:ltr;text-align:left;">│   ├── 01_Auth_Strategies.md               ← استراتيجيات المصادقة</td></tr><tr style="background:#282c34;"><td style="background:#21252b;color:#5c6370;text-align:right;padding:4px 8px;border:none;width:40px;min-width:40px;font-family:Consolas,monospace;direction:ltr;vertical-align:top;">23</td><td style="padding:4px 12px;border:none;white-space:normal;font-family:Consolas,monospace;color:#abb2bf;direction:ltr;text-align:left;">│   ├── 02_JWT_Implementation.md            ← تنفيذ JWT</td></tr><tr style="background:#282c34;"><td style="background:#21252b;color:#5c6370;text-align:right;padding:4px 8px;border:none;width:40px;min-width:40px;font-family:Consolas,monospace;direction:ltr;vertical-align:top;">24</td><td style="padding:4px 12px;border:none;white-space:normal;font-family:Consolas,monospace;color:#abb2bf;direction:ltr;text-align:left;">│   ├── 03_RBAC_Permissions.md              ← الأدوار والصلاحيات</td></tr><tr style="background:#282c34;"><td style="background:#21252b;color:#5c6370;text-align:right;padding:4px 8px;border:none;width:40px;min-width:40px;font-family:Consolas,monospace;direction:ltr;vertical-align:top;">25</td><td style="padding:4px 12px;border:none;white-space:normal;font-family:Consolas,monospace;color:#abb2bf;direction:ltr;text-align:left;">│   └── index.md</td></tr><tr style="background:#282c34;"><td style="background:#21252b;color:#5c6370;text-align:right;padding:4px 8px;border:none;width:40px;min-width:40px;font-family:Consolas,monospace;direction:ltr;vertical-align:top;">26</td><td style="padding:4px 12px;border:none;white-space:normal;font-family:Consolas,monospace;color:#abb2bf;direction:ltr;text-align:left;">│</td></tr><tr style="background:#282c34;"><td style="background:#21252b;color:#5c6370;text-align:right;padding:4px 8px;border:none;width:40px;min-width:40px;font-family:Consolas,monospace;direction:ltr;vertical-align:top;">27</td><td style="padding:4px 12px;border:none;white-space:normal;font-family:Consolas,monospace;color:#abb2bf;direction:ltr;text-align:left;">├── 03-Implementation/                      # التنفيذ العملي</td></tr><tr style="background:#282c34;"><td style="background:#21252b;color:#5c6370;text-align:right;padding:4px 8px;border:none;width:40px;min-width:40px;font-family:Consolas,monospace;direction:ltr;vertical-align:top;">28</td><td style="padding:4px 12px;border:none;white-space:normal;font-family:Consolas,monospace;color:#abb2bf;direction:ltr;text-align:left;">│   ├── 01_Resources_CRUD.md                ← عمليات CRUD</td></tr><tr style="background:#282c34;"><td style="background:#21252b;color:#5c6370;text-align:right;padding:4px 8px;border:none;width:40px;min-width:40px;font-family:Consolas,monospace;direction:ltr;vertical-align:top;">29</td><td style="padding:4px 12px;border:none;white-space:normal;font-family:Consolas,monospace;color:#abb2bf;direction:ltr;text-align:left;">│   ├── 02_Response_Handling.md             ← معالجة الردود (محسّن)</td></tr><tr style="background:#282c34;"><td style="background:#21252b;color:#5c6370;text-align:right;padding:4px 8px;border:none;width:40px;min-width:40px;font-family:Consolas,monospace;direction:ltr;vertical-align:top;">30</td><td style="padding:4px 12px;border:none;white-space:normal;font-family:Consolas,monospace;color:#abb2bf;direction:ltr;text-align:left;">│   ├── 03_Validation_Rules.md              ← قواعد التحقق</td></tr><tr style="background:#282c34;"><td style="background:#21252b;color:#5c6370;text-align:right;padding:4px 8px;border:none;width:40px;min-width:40px;font-family:Consolas,monospace;direction:ltr;vertical-align:top;">31</td><td style="padding:4px 12px;border:none;white-space:normal;font-family:Consolas,monospace;color:#abb2bf;direction:ltr;text-align:left;">│   ├── 04_Pagination_Filtering.md          ← الترقيم والتصفية</td></tr><tr style="background:#282c34;"><td style="background:#21252b;color:#5c6370;text-align:right;padding:4px 8px;border:none;width:40px;min-width:40px;font-family:Consolas,monospace;direction:ltr;vertical-align:top;">32</td><td style="padding:4px 12px;border:none;white-space:normal;font-family:Consolas,monospace;color:#abb2bf;direction:ltr;text-align:left;">│   ├── 05_Idempotency_Keys.md              ← مفاتيح عدم التكرار 🔴 جديد</td></tr><tr style="background:#282c34;"><td style="background:#21252b;color:#5c6370;text-align:right;padding:4px 8px;border:none;width:40px;min-width:40px;font-family:Consolas,monospace;direction:ltr;vertical-align:top;">33</td><td style="padding:4px 12px;border:none;white-space:normal;font-family:Consolas,monospace;color:#abb2bf;direction:ltr;text-align:left;">│   ├── 06_File_Uploads.md                  ← رفع الملفات 🟡 جديد</td></tr><tr style="background:#282c34;"><td style="background:#21252b;color:#5c6370;text-align:right;padding:4px 8px;border:none;width:40px;min-width:40px;font-family:Consolas,monospace;direction:ltr;vertical-align:top;">34</td><td style="padding:4px 12px;border:none;white-space:normal;font-family:Consolas,monospace;color:#abb2bf;direction:ltr;text-align:left;">│   ├── 07_Async_Jobs.md                    ← المهام غير المتزامنة 🟡 جديد</td></tr><tr style="background:#282c34;"><td style="background:#21252b;color:#5c6370;text-align:right;padding:4px 8px;border:none;width:40px;min-width:40px;font-family:Consolas,monospace;direction:ltr;vertical-align:top;">35</td><td style="padding:4px 12px;border:none;white-space:normal;font-family:Consolas,monospace;color:#abb2bf;direction:ltr;text-align:left;">│   └── index.md</td></tr><tr style="background:#282c34;"><td style="background:#21252b;color:#5c6370;text-align:right;padding:4px 8px;border:none;width:40px;min-width:40px;font-family:Consolas,monospace;direction:ltr;vertical-align:top;">36</td><td style="padding:4px 12px;border:none;white-space:normal;font-family:Consolas,monospace;color:#abb2bf;direction:ltr;text-align:left;">│</td></tr><tr style="background:#282c34;"><td style="background:#21252b;color:#5c6370;text-align:right;padding:4px 8px;border:none;width:40px;min-width:40px;font-family:Consolas,monospace;direction:ltr;vertical-align:top;">37</td><td style="padding:4px 12px;border:none;white-space:normal;font-family:Consolas,monospace;color:#abb2bf;direction:ltr;text-align:left;">├── 04-Security/                            # الأمان والحماية</td></tr><tr style="background:#282c34;"><td style="background:#21252b;color:#5c6370;text-align:right;padding:4px 8px;border:none;width:40px;min-width:40px;font-family:Consolas,monospace;direction:ltr;vertical-align:top;">38</td><td style="padding:4px 12px;border:none;white-space:normal;font-family:Consolas,monospace;color:#abb2bf;direction:ltr;text-align:left;">│   ├── 01_Security_Hardening.md            ← تقوية الأمان</td></tr><tr style="background:#282c34;"><td style="background:#21252b;color:#5c6370;text-align:right;padding:4px 8px;border:none;width:40px;min-width:40px;font-family:Consolas,monospace;direction:ltr;vertical-align:top;">39</td><td style="padding:4px 12px;border:none;white-space:normal;font-family:Consolas,monospace;color:#abb2bf;direction:ltr;text-align:left;">│   ├── 02_Rate_Limiting.md                 ← تحديد معدل الطلبات</td></tr><tr style="background:#282c34;"><td style="background:#21252b;color:#5c6370;text-align:right;padding:4px 8px;border:none;width:40px;min-width:40px;font-family:Consolas,monospace;direction:ltr;vertical-align:top;">40</td><td style="padding:4px 12px;border:none;white-space:normal;font-family:Consolas,monospace;color:#abb2bf;direction:ltr;text-align:left;">│   ├── 03_CORS_Configuration.md            ← إعداد CORS</td></tr><tr style="background:#282c34;"><td style="background:#21252b;color:#5c6370;text-align:right;padding:4px 8px;border:none;width:40px;min-width:40px;font-family:Consolas,monospace;direction:ltr;vertical-align:top;">41</td><td style="padding:4px 12px;border:none;white-space:normal;font-family:Consolas,monospace;color:#abb2bf;direction:ltr;text-align:left;">│   ├── 04_Data_Privacy.md                  ← الخصوصية وحماية البيانات 🔴 جديد</td></tr><tr style="background:#282c34;"><td style="background:#21252b;color:#5c6370;text-align:right;padding:4px 8px;border:none;width:40px;min-width:40px;font-family:Consolas,monospace;direction:ltr;vertical-align:top;">42</td><td style="padding:4px 12px;border:none;white-space:normal;font-family:Consolas,monospace;color:#abb2bf;direction:ltr;text-align:left;">│   └── index.md</td></tr><tr style="background:#282c34;"><td style="background:#21252b;color:#5c6370;text-align:right;padding:4px 8px;border:none;width:40px;min-width:40px;font-family:Consolas,monospace;direction:ltr;vertical-align:top;">43</td><td style="padding:4px 12px;border:none;white-space:normal;font-family:Consolas,monospace;color:#abb2bf;direction:ltr;text-align:left;">│</td></tr><tr style="background:#282c34;"><td style="background:#21252b;color:#5c6370;text-align:right;padding:4px 8px;border:none;width:40px;min-width:40px;font-family:Consolas,monospace;direction:ltr;vertical-align:top;">44</td><td style="padding:4px 12px;border:none;white-space:normal;font-family:Consolas,monospace;color:#abb2bf;direction:ltr;text-align:left;">├── 05-Performance/                         # الأداء والتحسين</td></tr><tr style="background:#282c34;"><td style="background:#21252b;color:#5c6370;text-align:right;padding:4px 8px;border:none;width:40px;min-width:40px;font-family:Consolas,monospace;direction:ltr;vertical-align:top;">45</td><td style="padding:4px 12px;border:none;white-space:normal;font-family:Consolas,monospace;color:#abb2bf;direction:ltr;text-align:left;">│   ├── 01_Caching_Strategy.md              ← استراتيجية التخزين المؤقت</td></tr><tr style="background:#282c34;"><td style="background:#21252b;color:#5c6370;text-align:right;padding:4px 8px;border:none;width:40px;min-width:40px;font-family:Consolas,monospace;direction:ltr;vertical-align:top;">46</td><td style="padding:4px 12px;border:none;white-space:normal;font-family:Consolas,monospace;color:#abb2bf;direction:ltr;text-align:left;">│   ├── 02_Database_Optimization.md         ← تحسين قاعدة البيانات</td></tr><tr style="background:#282c34;"><td style="background:#21252b;color:#5c6370;text-align:right;padding:4px 8px;border:none;width:40px;min-width:40px;font-family:Consolas,monospace;direction:ltr;vertical-align:top;">47</td><td style="padding:4px 12px;border:none;white-space:normal;font-family:Consolas,monospace;color:#abb2bf;direction:ltr;text-align:left;">│   ├── 03_Response_Optimization.md         ← تحسين الردود</td></tr><tr style="background:#282c34;"><td style="background:#21252b;color:#5c6370;text-align:right;padding:4px 8px;border:none;width:40px;min-width:40px;font-family:Consolas,monospace;direction:ltr;vertical-align:top;">48</td><td style="padding:4px 12px;border:none;white-space:normal;font-family:Consolas,monospace;color:#abb2bf;direction:ltr;text-align:left;">│   └── index.md</td></tr><tr style="background:#282c34;"><td style="background:#21252b;color:#5c6370;text-align:right;padding:4px 8px;border:none;width:40px;min-width:40px;font-family:Consolas,monospace;direction:ltr;vertical-align:top;">49</td><td style="padding:4px 12px;border:none;white-space:normal;font-family:Consolas,monospace;color:#abb2bf;direction:ltr;text-align:left;">│</td></tr><tr style="background:#282c34;"><td style="background:#21252b;color:#5c6370;text-align:right;padding:4px 8px;border:none;width:40px;min-width:40px;font-family:Consolas,monospace;direction:ltr;vertical-align:top;">50</td><td style="padding:4px 12px;border:none;white-space:normal;font-family:Consolas,monospace;color:#abb2bf;direction:ltr;text-align:left;">├── 06-Quality/                             # الجودة والاختبارات</td></tr><tr style="background:#282c34;"><td style="background:#21252b;color:#5c6370;text-align:right;padding:4px 8px;border:none;width:40px;min-width:40px;font-family:Consolas,monospace;direction:ltr;vertical-align:top;">51</td><td style="padding:4px 12px;border:none;white-space:normal;font-family:Consolas,monospace;color:#abb2bf;direction:ltr;text-align:left;">│   ├── 01_Testing_Strategy.md              ← استراتيجية الاختبارات</td></tr><tr style="background:#282c34;"><td style="background:#21252b;color:#5c6370;text-align:right;padding:4px 8px;border:none;width:40px;min-width:40px;font-family:Consolas,monospace;direction:ltr;vertical-align:top;">52</td><td style="padding:4px 12px;border:none;white-space:normal;font-family:Consolas,monospace;color:#abb2bf;direction:ltr;text-align:left;">│   ├── 02_Code_Quality.md                  ← جودة الكود (محسّن)</td></tr><tr style="background:#282c34;"><td style="background:#21252b;color:#5c6370;text-align:right;padding:4px 8px;border:none;width:40px;min-width:40px;font-family:Consolas,monospace;direction:ltr;vertical-align:top;">53</td><td style="padding:4px 12px;border:none;white-space:normal;font-family:Consolas,monospace;color:#abb2bf;direction:ltr;text-align:left;">│   ├── 03_API_Documentation.md             ← توثيق APIs</td></tr><tr style="background:#282c34;"><td style="background:#21252b;color:#5c6370;text-align:right;padding:4px 8px;border:none;width:40px;min-width:40px;font-family:Consolas,monospace;direction:ltr;vertical-align:top;">54</td><td style="padding:4px 12px;border:none;white-space:normal;font-family:Consolas,monospace;color:#abb2bf;direction:ltr;text-align:left;">│   ├── 04_OpenAPI_Specification.md         ← مواصفة OpenAPI 🟡 جديد</td></tr><tr style="background:#282c34;"><td style="background:#21252b;color:#5c6370;text-align:right;padding:4px 8px;border:none;width:40px;min-width:40px;font-family:Consolas,monospace;direction:ltr;vertical-align:top;">55</td><td style="padding:4px 12px;border:none;white-space:normal;font-family:Consolas,monospace;color:#abb2bf;direction:ltr;text-align:left;">│   └── index.md</td></tr><tr style="background:#282c34;"><td style="background:#21252b;color:#5c6370;text-align:right;padding:4px 8px;border:none;width:40px;min-width:40px;font-family:Consolas,monospace;direction:ltr;vertical-align:top;">56</td><td style="padding:4px 12px;border:none;white-space:normal;font-family:Consolas,monospace;color:#abb2bf;direction:ltr;text-align:left;">│</td></tr><tr style="background:#282c34;"><td style="background:#21252b;color:#5c6370;text-align:right;padding:4px 8px;border:none;width:40px;min-width:40px;font-family:Consolas,monospace;direction:ltr;vertical-align:top;">57</td><td style="padding:4px 12px;border:none;white-space:normal;font-family:Consolas,monospace;color:#abb2bf;direction:ltr;text-align:left;">├── 07-Operations/                          # العمليات والمراقبة</td></tr><tr style="background:#282c34;"><td style="background:#21252b;color:#5c6370;text-align:right;padding:4px 8px;border:none;width:40px;min-width:40px;font-family:Consolas,monospace;direction:ltr;vertical-align:top;">58</td><td style="padding:4px 12px;border:none;white-space:normal;font-family:Consolas,monospace;color:#abb2bf;direction:ltr;text-align:left;">│   ├── 01_Monitoring_Logging.md            ← المراقبة والسجلات</td></tr><tr style="background:#282c34;"><td style="background:#21252b;color:#5c6370;text-align:right;padding:4px 8px;border:none;width:40px;min-width:40px;font-family:Consolas,monospace;direction:ltr;vertical-align:top;">59</td><td style="padding:4px 12px;border:none;white-space:normal;font-family:Consolas,monospace;color:#abb2bf;direction:ltr;text-align:left;">│   ├── 02_Deployment_CICD.md               ← الإطلاق وCI/CD</td></tr><tr style="background:#282c34;"><td style="background:#21252b;color:#5c6370;text-align:right;padding:4px 8px;border:none;width:40px;min-width:40px;font-family:Consolas,monospace;direction:ltr;vertical-align:top;">60</td><td style="padding:4px 12px;border:none;white-space:normal;font-family:Consolas,monospace;color:#abb2bf;direction:ltr;text-align:left;">│   ├── 03_Error_Handling.md                ← معالجة الأخطاء</td></tr><tr style="background:#282c34;"><td style="background:#21252b;color:#5c6370;text-align:right;padding:4px 8px;border:none;width:40px;min-width:40px;font-family:Consolas,monospace;direction:ltr;vertical-align:top;">61</td><td style="padding:4px 12px;border:none;white-space:normal;font-family:Consolas,monospace;color:#abb2bf;direction:ltr;text-align:left;">│   ├── 04_Advanced_Monitoring.md           ← المراقبة المتقدمة 🟡 جديد</td></tr><tr style="background:#282c34;"><td style="background:#21252b;color:#5c6370;text-align:right;padding:4px 8px;border:none;width:40px;min-width:40px;font-family:Consolas,monospace;direction:ltr;vertical-align:top;">62</td><td style="padding:4px 12px;border:none;white-space:normal;font-family:Consolas,monospace;color:#abb2bf;direction:ltr;text-align:left;">│   └── index.md</td></tr><tr style="background:#282c34;"><td style="background:#21252b;color:#5c6370;text-align:right;padding:4px 8px;border:none;width:40px;min-width:40px;font-family:Consolas,monospace;direction:ltr;vertical-align:top;">63</td><td style="padding:4px 12px;border:none;white-space:normal;font-family:Consolas,monospace;color:#abb2bf;direction:ltr;text-align:left;">│</td></tr><tr style="background:#282c34;"><td style="background:#21252b;color:#5c6370;text-align:right;padding:4px 8px;border:none;width:40px;min-width:40px;font-family:Consolas,monospace;direction:ltr;vertical-align:top;">64</td><td style="padding:4px 12px;border:none;white-space:normal;font-family:Consolas,monospace;color:#abb2bf;direction:ltr;text-align:left;">└── 08-Reference/                           # المراجع والقوالب</td></tr><tr style="background:#282c34;"><td style="background:#21252b;color:#5c6370;text-align:right;padding:4px 8px;border:none;width:40px;min-width:40px;font-family:Consolas,monospace;direction:ltr;vertical-align:top;">65</td><td style="padding:4px 12px;border:none;white-space:normal;font-family:Consolas,monospace;color:#abb2bf;direction:ltr;text-align:left;">&nbsp;&nbsp;&nbsp;&nbsp;├── 01_Code_Templates.md                ← قوالب الكود</td></tr><tr style="background:#282c34;"><td style="background:#21252b;color:#5c6370;text-align:right;padding:4px 8px;border:none;width:40px;min-width:40px;font-family:Consolas,monospace;direction:ltr;vertical-align:top;">66</td><td style="padding:4px 12px;border:none;white-space:normal;font-family:Consolas,monospace;color:#abb2bf;direction:ltr;text-align:left;">&nbsp;&nbsp;&nbsp;&nbsp;├── 02_Quick_Reference.md               ← مرجع سريع (محسّن)</td></tr><tr style="background:#282c34;"><td style="background:#21252b;color:#5c6370;text-align:right;padding:4px 8px;border:none;width:40px;min-width:40px;font-family:Consolas,monospace;direction:ltr;vertical-align:top;">67</td><td style="padding:4px 12px;border:none;white-space:normal;font-family:Consolas,monospace;color:#abb2bf;direction:ltr;text-align:left;">&nbsp;&nbsp;&nbsp;&nbsp;├── 03_Troubleshooting.md               ← حل المشكلات</td></tr><tr style="background:#282c34;"><td style="background:#21252b;color:#5c6370;text-align:right;padding:4px 8px;border:none;width:40px;min-width:40px;font-family:Consolas,monospace;direction:ltr;vertical-align:top;">68</td><td style="padding:4px 12px;border:none;white-space:normal;font-family:Consolas,monospace;color:#abb2bf;direction:ltr;text-align:left;">&nbsp;&nbsp;&nbsp;&nbsp;└── index.md</td></tr></table></div>
+
+<hr style="border:none;height:2px;background:linear-gradient(90deg,transparent,#3b82f6,transparent);margin:2em 0;">
+
+<p style="margin:0;padding:0;line-height:0.1;"> </p><h2 style="font-size:13pt;font-weight:bold;color:#1e40af;border-bottom:1px solid #60a5fa;padding-bottom:0.2em;margin-top:1em;margin-bottom:0.5em;display:block;"><strong>المزايا الرئيسية | Key Features</strong></h2>
+
+<p style="margin:0;padding:0;line-height:0.1;"> </p><h3 style="font-size:11pt;font-weight:bold;color:#1e3a8a;margin-top:0.8em;margin-bottom:0.5em;display:block;"><strong>1. معايير عامة وعالمية</strong></h3>
+<ul style="font-size:11pt;margin:0.5em 0;padding-right:2em;line-height:1.15;">
+<li style="margin:0.2em 0;">تصلح لأي Laravel project</li>
+<li style="margin:0.2em 0;">تصلح لأي PHP framework</li>
+<li style="margin:0.2em 0;">تصلح لأي RESTful API</li>
+<li style="margin:0.2em 0;">مبنية على معايير دولية (REST, OWASP, Industry Best Practices)</li>
+
+</ul>
+<p style="margin:0;padding:0;line-height:0.1;"> </p><h3 style="font-size:11pt;font-weight:bold;color:#1e3a8a;margin-top:0.8em;margin-bottom:0.5em;display:block;"><strong>2. أداة تقييم شاملة</strong></h3>
+<ul style="font-size:11pt;margin:0.5em 0;padding-right:2em;line-height:1.15;">
+<li style="margin:0.2em 0;">151 معيار قابل للقياس</li>
+<li style="margin:0.2em 0;">نظام تقييم بالنقاط (0-100%)</li>
+<li style="margin:0.2em 0;">10 فئات رئيسية</li>
+<li style="margin:0.2em 0;">قابل لإعادة الاستخدام دورياً</li>
+
+</ul>
+<p style="margin:0;padding:0;line-height:0.1;"> </p><h3 style="font-size:11pt;font-weight:bold;color:#1e3a8a;margin-top:0.8em;margin-bottom:0.5em;display:block;"><strong>3. خطة تحسين واضحة</strong></h3>
+<ul style="font-size:11pt;margin:0.5em 0;padding-right:2em;line-height:1.15;">
+<li style="margin:0.2em 0;">3 مراحل تدريجية</li>
+<li style="margin:0.2em 0;">أولويات محددة</li>
+<li style="margin:0.2em 0;">KPIs قابلة للقياس</li>
+<li style="margin:0.2em 0;">Timeline واقعي</li>
+
+</ul>
+<p style="margin:0;padding:0;line-height:0.1;"> </p><h3 style="font-size:11pt;font-weight:bold;color:#1e3a8a;margin-top:0.8em;margin-bottom:0.5em;display:block;"><strong>4. أمثلة عملية</strong></h3>
+<ul style="font-size:11pt;margin:0.5em 0;padding-right:2em;line-height:1.15;">
+<li style="margin:0.2em 0;">Laravel + Sanctum (مع إمكانية التطبيق على أي تقنية)</li>
+<li style="margin:0.2em 0;">قوالب كود جاهزة</li>
+<li style="margin:0.2em 0;">Best practices مجربة</li>
+<li style="margin:0.2em 0;">موثقة بالتفصيل</li>
+
+</ul>
+<p style="margin:0;padding:0;line-height:0.1;"> </p><h3 style="font-size:11pt;font-weight:bold;color:#1e3a8a;margin-top:0.8em;margin-bottom:0.5em;display:block;"><strong>5. ثنائي اللغة</strong></h3>
+<ul style="font-size:11pt;margin:0.5em 0;padding-right:2em;line-height:1.15;">
+<li style="margin:0.2em 0;">عربي للشروحات</li>
+<li style="margin:0.2em 0;">إنجليزي للمصطلحات التقنية</li>
+<li style="margin:0.2em 0;">رسائل خطأ بالعربية</li>
+<li style="margin:0.2em 0;">توثيق شامل</li>
+
+</ul>
+<hr style="border:none;height:2px;background:linear-gradient(90deg,transparent,#3b82f6,transparent);margin:2em 0;">
+
+<p style="margin:0;padding:0;line-height:0.1;"> </p><h2 style="font-size:13pt;font-weight:bold;color:#1e40af;border-bottom:1px solid #60a5fa;padding-bottom:0.2em;margin-top:1em;margin-bottom:0.5em;display:block;"><strong>كيف تبدأ | Getting Started</strong></h2>
+
+<p style="margin:0;padding:0;line-height:0.1;"> </p><h3 style="font-size:11pt;font-weight:bold;color:#1e3a8a;margin-top:0.8em;margin-bottom:0.5em;display:block;"><strong>المسار الموصى به:</strong></h3>
+
+<h4 style="font-size:11pt;font-weight:bold;color:#1e293b;margin-top:0.5em;margin-bottom:0.5em;"><strong> المرحلة 1: الفهم (ساعة واحدة)</strong></h4>
+
+<strong>اقرأ دليل البدء السريع:</strong>
+<ul style="font-size:11pt;margin:0.5em 0;padding-right:2em;line-height:1.15;">
+<li style="margin:0.2em 0;"><code style="background:#f1f5f9;padding:2px 6px;border-radius:3px;font-family:Consolas,monospace;color:#dc2626;font-size:10pt;direction:ltr;border:1px solid #e2e8f0;">QUICK_START.md</code> (10 دقائق)</li>
+
+</ul>
+<strong>راجع الدليل الرئيسي:</strong>
+<ul style="font-size:11pt;margin:0.5em 0;padding-right:2em;line-height:1.15;">
+<li style="margin:0.2em 0;"><code style="background:#f1f5f9;padding:2px 6px;border-radius:3px;font-family:Consolas,monospace;color:#dc2626;font-size:10pt;direction:ltr;border:1px solid #e2e8f0;">00-Master/00_Master_API_Guide.md</code> (45 دقيقة)</li>
+
+</ul>
+<strong>افهم أداة التقييم:</strong>
+<ul style="font-size:11pt;margin:0.5em 0;padding-right:2em;line-height:1.15;">
+<li style="margin:0.2em 0;"><code style="background:#f1f5f9;padding:2px 6px;border-radius:3px;font-family:Consolas,monospace;color:#dc2626;font-size:10pt;direction:ltr;border:1px solid #e2e8f0;">00-Master/01_APIs_Audit_Checklist.md</code> (15 دقيقة)</li>
+
+</ul>
+<hr style="border:none;height:2px;background:linear-gradient(90deg,transparent,#3b82f6,transparent);margin:2em 0;">
+
+<h4 style="font-size:11pt;font-weight:bold;color:#1e293b;margin-top:0.5em;margin-bottom:0.5em;"><strong> المرحلة 2: التقييم (ساعة واحدة)</strong></h4>
+
+<strong>قيّم APIs الحالية (إن وجدت):</strong>
+<ul style="font-size:11pt;margin:0.5em 0;padding-right:2em;line-height:1.15;">
+<li style="margin:0.2em 0;">استخدم Audit Checklist</li>
+<li style="margin:0.2em 0;">سجل النتائج والملاحظات</li>
+<li style="margin:0.2em 0;">حدد الفجوات والأولويات</li>
+
+</ul>
+<hr style="border:none;height:2px;background:linear-gradient(90deg,transparent,#3b82f6,transparent);margin:2em 0;">
+
+<h4 style="font-size:11pt;font-weight:bold;color:#1e293b;margin-top:0.5em;margin-bottom:0.5em;"><strong> المرحلة 3: التطبيق (حسب المشروع)</strong></h4>
+
+<strong>للتحسين:</strong>
+<ul style="font-size:11pt;margin:0.5em 0;padding-right:2em;line-height:1.15;">
+<li style="margin:0.2em 0;">اتبع: <code style="background:#f1f5f9;padding:2px 6px;border-radius:3px;font-family:Consolas,monospace;color:#dc2626;font-size:10pt;direction:ltr;border:1px solid #e2e8f0;">00-Master/02_Improvement_Tracking.md</code></li>
+<li style="margin:0.2em 0;">نفذ المراحل بالترتيب</li>
+
+</ul>
+<strong>للبناء الجديد:</strong>
+<ul style="font-size:11pt;margin:0.5em 0;padding-right:2em;line-height:1.15;">
+<li style="margin:0.2em 0;">اتبع الأقسام حسب الحاجة</li>
+<li style="margin:0.2em 0;">استخدم القوالب من <code style="background:#f1f5f9;padding:2px 6px;border-radius:3px;font-family:Consolas,monospace;color:#dc2626;font-size:10pt;direction:ltr;border:1px solid #e2e8f0;">08-Reference/</code></li>
+
+</ul>
+<hr style="border:none;height:2px;background:linear-gradient(90deg,transparent,#3b82f6,transparent);margin:2em 0;">
+
+<p style="margin:0;padding:0;line-height:0.1;"> </p><h2 style="font-size:13pt;font-weight:bold;color:#1e40af;border-bottom:1px solid #60a5fa;padding-bottom:0.2em;margin-top:1em;margin-bottom:0.5em;display:block;"><strong>الموارد والتقنيات | Resources & Technologies</strong></h2>
+
+<p style="margin:0;padding:0;line-height:0.1;"> </p><h3 style="font-size:11pt;font-weight:bold;color:#1e3a8a;margin-top:0.8em;margin-bottom:0.5em;display:block;"><strong>التقنيات المدعومة:</strong></h3>
+
+<p style="font-size:11pt;margin:0.3em 0;line-height:1.15;">هذه المعايير قابلة للتطبيق مع:</p>
+
+<ul style="font-size:11pt;margin:0.5em 0;padding-right:2em;line-height:1.15;">
+<li style="margin:0.2em 0;"><strong>Frameworks</strong>: Laravel, Symfony, Express.js, FastAPI, Django REST, ASP.NET Core</li>
+<li style="margin:0.2em 0;"><strong>Authentication</strong>: JWT, OAuth2, Sanctum, Passport</li>
+<li style="margin:0.2em 0;"><strong>Databases</strong>: MySQL, PostgreSQL, MongoDB</li>
+<li style="margin:0.2em 0;"><strong>Caching</strong>: Redis, Memcached</li>
+<li style="margin:0.2em 0;"><strong>Queues</strong>: Redis, RabbitMQ, SQS</li>
+
+</ul>
+<p style="margin:0;padding:0;line-height:0.1;"> </p><h3 style="font-size:11pt;font-weight:bold;color:#1e3a8a;margin-top:0.8em;margin-bottom:0.5em;display:block;"><strong>المعايير المرجعية:</strong></h3>
+
+<ul style="font-size:11pt;margin:0.5em 0;padding-right:2em;line-height:1.15;">
+<li style="margin:0.2em 0;">📘 <a href="https://restfulapi.net/" style="color:#2563eb;text-decoration:none;">RESTful API Guidelines</a></li>
+<li style="margin:0.2em 0;">🔒 <a href="https://owasp.org/www-project-api-security/" style="color:#2563eb;text-decoration:none;">OWASP API Security Top 10</a></li>
+<li style="margin:0.2em 0;"><a href="https://httpstatuses.com/" style="color:#2563eb;text-decoration:none;">HTTP Status Codes</a></li>
+<li style="margin:0.2em 0;"><a href="https://jsonapi.org/" style="color:#2563eb;text-decoration:none;">JSON API Specification</a></li>
+<li style="margin:0.2em 0;"><a href="https://oauth.net/2/" style="color:#2563eb;text-decoration:none;">OAuth 2.0 Specification</a></li>
+
+</ul>
+<hr style="border:none;height:2px;background:linear-gradient(90deg,transparent,#3b82f6,transparent);margin:2em 0;">
+
+<p style="margin:0;padding:0;line-height:0.1;"> </p><h2 style="font-size:13pt;font-weight:bold;color:#1e40af;border-bottom:1px solid #60a5fa;padding-bottom:0.2em;margin-top:1em;margin-bottom:0.5em;display:block;"><strong>معايير النجاح | Success Criteria</strong></h2>
+
+<p style="margin:0;padding:0;line-height:0.1;"> </p><h3 style="font-size:11pt;font-weight:bold;color:#1e3a8a;margin-top:0.8em;margin-bottom:0.5em;display:block;"><strong>الوظائف | Functionality:</strong></h3>
+<ul style="font-size:11pt;margin:0.5em 0;padding-right:2em;line-height:1.15;">
+<li style="margin:0.2em 0;">جميع endpoints تعمل بشكل صحيح</li>
+<li style="margin:0.2em 0;">Response موحّد ومنظم</li>
+<li style="margin:0.2em 0;">Validation شامل ودقيق</li>
+<li style="margin:0.2em 0;">Error handling احترافي</li>
+
+</ul>
+<p style="margin:0;padding:0;line-height:0.1;"> </p><h3 style="font-size:11pt;font-weight:bold;color:#1e3a8a;margin-top:0.8em;margin-bottom:0.5em;display:block;"><strong>الأمان | Security:</strong></h3>
+<ul style="font-size:11pt;margin:0.5em 0;padding-right:2em;line-height:1.15;">
+<li style="margin:0.2em 0;">Authentication مطبق بشكل صحيح</li>
+<li style="margin:0.2em 0;">Authorization دقيق (RBAC/ABAC)</li>
+<li style="margin:0.2em 0;">Rate Limiting فعّال</li>
+<li style="margin:0.2em 0;">Input validation شامل</li>
+<li style="margin:0.2em 0;">Security headers كاملة</li>
+
+</ul>
+<p style="margin:0;padding:0;line-height:0.1;"> </p><h3 style="font-size:11pt;font-weight:bold;color:#1e3a8a;margin-top:0.8em;margin-bottom:0.5em;display:block;"><strong>الأداء | Performance:</strong></h3>
+<ul style="font-size:11pt;margin:0.5em 0;padding-right:2em;line-height:1.15;">
+<li style="margin:0.2em 0;">Response time ≤ 300ms (p95)</li>
+<li style="margin:0.2em 0;">Database queries محسّنة</li>
+<li style="margin:0.2em 0;">Caching strategy فعّالة</li>
+<li style="margin:0.2em 0;">N+1 queries محلولة</li>
+
+</ul>
+<p style="margin:0;padding:0;line-height:0.1;"> </p><h3 style="font-size:11pt;font-weight:bold;color:#1e3a8a;margin-top:0.8em;margin-bottom:0.5em;display:block;"><strong>الجودة | Quality:</strong></h3>
+<ul style="font-size:11pt;margin:0.5em 0;padding-right:2em;line-height:1.15;">
+<li style="margin:0.2em 0;">Test coverage ≥ 70%</li>
+<li style="margin:0.2em 0;">Code quality عالي</li>
+<li style="margin:0.2em 0;">Documentation كاملة</li>
+<li style="margin:0.2em 0;">Best practices مطبقة</li>
+
+</ul>
+<hr style="border:none;height:2px;background:linear-gradient(90deg,transparent,#3b82f6,transparent);margin:2em 0;">
+
+<p style="margin:0;padding:0;line-height:0.1;"> </p><h2 style="font-size:13pt;font-weight:bold;color:#1e40af;border-bottom:1px solid #60a5fa;padding-bottom:0.2em;margin-top:1em;margin-bottom:0.5em;display:block;"><strong>كيف تستخدم هذه الوثيقة | How to Use This Document</strong></h2>
+
+<p style="margin:0;padding:0;line-height:0.1;"> </p><h3 style="font-size:11pt;font-weight:bold;color:#1e3a8a;margin-top:0.8em;margin-bottom:0.5em;display:block;"><strong>كـمرجع معايير | As Standards Reference</strong></h3>
+
+<strong>عندما تريد بناء/تحسين APIs:</strong>
+<ul style="font-size:11pt;margin:0.5em 0;padding-right:2em;line-height:1.15;">
+<li style="margin:0.2em 0;">راجع: <code style="background:#f1f5f9;padding:2px 6px;border-radius:3px;font-family:Consolas,monospace;color:#dc2626;font-size:10pt;direction:ltr;border:1px solid #e2e8f0;">00-Master/00_Master_API_Guide.md</code></li>
+<li style="margin:0.2em 0;">اتبع: المعايير في كل قسم</li>
+<li style="margin:0.2em 0;">استخدم: القوالب في <code style="background:#f1f5f9;padding:2px 6px;border-radius:3px;font-family:Consolas,monospace;color:#dc2626;font-size:10pt;direction:ltr;border:1px solid #e2e8f0;">08-Reference/</code></li>
+<li style="margin:0.2em 0;">قيّم: باستخدام Audit Checklist</li>
+
+</ul>
+<hr style="border:none;height:2px;background:linear-gradient(90deg,transparent,#3b82f6,transparent);margin:2em 0;">
+
+<p style="margin:0;padding:0;line-height:0.1;"> </p><h3 style="font-size:11pt;font-weight:bold;color:#1e3a8a;margin-top:0.8em;margin-bottom:0.5em;display:block;"><strong>كـأداة تقييم | As Audit Tool</strong></h3>
+
+<strong>لتقييم APIs موجودة:</strong>
+<ul style="font-size:11pt;margin:0.5em 0;padding-right:2em;line-height:1.15;">
+<li style="margin:0.2em 0;">افتح: <code style="background:#f1f5f9;padding:2px 6px;border-radius:3px;font-family:Consolas,monospace;color:#dc2626;font-size:10pt;direction:ltr;border:1px solid #e2e8f0;">00-Master/01_APIs_Audit_Checklist.md</code></li>
+<li style="margin:0.2em 0;">اختبر كل معيار (151 معيار)</li>
+<li style="margin:0.2em 0;">احسب النتيجة (0-100%)</li>
+<li style="margin:0.2em 0;">حدد الفجوات والأولويات</li>
+<li style="margin:0.2em 0;">ضع خطة تحسين</li>
+
+</ul>
+<hr style="border:none;height:2px;background:linear-gradient(90deg,transparent,#3b82f6,transparent);margin:2em 0;">
+
+<p style="margin:0;padding:0;line-height:0.1;"> </p><h3 style="font-size:11pt;font-weight:bold;color:#1e3a8a;margin-top:0.8em;margin-bottom:0.5em;display:block;"><strong>كـدليل تحسين | As Improvement Guide</strong></h3>
+
+<strong>لتحسين APIs حالية:</strong>
+<ul style="font-size:11pt;margin:0.5em 0;padding-right:2em;line-height:1.15;">
+<li style="margin:0.2em 0;">قيّم أولاً (Audit Checklist)</li>
+<li style="margin:0.2em 0;">راجع: <code style="background:#f1f5f9;padding:2px 6px;border-radius:3px;font-family:Consolas,monospace;color:#dc2626;font-size:10pt;direction:ltr;border:1px solid #e2e8f0;">00-Master/02_Improvement_Tracking.md</code></li>
+<li style="margin:0.2em 0;">حدد الأولويات (عالية → متوسطة → منخفضة)</li>
+<li style="margin:0.2em 0;">نفذ بالتدريج (3 مراحل)</li>
+<li style="margin:0.2em 0;">تابع التقدم أسبوعياً</li>
+
+</ul>
+<hr style="border:none;height:2px;background:linear-gradient(90deg,transparent,#3b82f6,transparent);margin:2em 0;">
+
+<p style="margin:0;padding:0;line-height:0.1;"> </p><h3 style="font-size:11pt;font-weight:bold;color:#1e3a8a;margin-top:0.8em;margin-bottom:0.5em;display:block;"><strong>كـدليل بناء | As Development Guide</strong></h3>
+
+<strong>لبناء APIs جديدة:</strong>
+<ul style="font-size:11pt;margin:0.5em 0;padding-right:2em;line-height:1.15;">
+<li style="margin:0.2em 0;">ابدأ من: <code style="background:#f1f5f9;padding:2px 6px;border-radius:3px;font-family:Consolas,monospace;color:#dc2626;font-size:10pt;direction:ltr;border:1px solid #e2e8f0;">01-Architecture/</code></li>
+<li style="margin:0.2em 0;">صمم: حسب <code style="background:#f1f5f9;padding:2px 6px;border-radius:3px;font-family:Consolas,monospace;color:#dc2626;font-size:10pt;direction:ltr;border:1px solid #e2e8f0;">03_API_Design_Principles</code></li>
+<li style="margin:0.2em 0;">نفذ: حسب <code style="background:#f1f5f9;padding:2px 6px;border-radius:3px;font-family:Consolas,monospace;color:#dc2626;font-size:10pt;direction:ltr;border:1px solid #e2e8f0;">03-Implementation/</code></li>
+<li style="margin:0.2em 0;">أمّن: حسب <code style="background:#f1f5f9;padding:2px 6px;border-radius:3px;font-family:Consolas,monospace;color:#dc2626;font-size:10pt;direction:ltr;border:1px solid #e2e8f0;">04-Security/</code></li>
+<li style="margin:0.2em 0;">حسّن: حسب <code style="background:#f1f5f9;padding:2px 6px;border-radius:3px;font-family:Consolas,monospace;color:#dc2626;font-size:10pt;direction:ltr;border:1px solid #e2e8f0;">05-Performance/</code></li>
+<li style="margin:0.2em 0;">اختبر: حسب <code style="background:#f1f5f9;padding:2px 6px;border-radius:3px;font-family:Consolas,monospace;color:#dc2626;font-size:10pt;direction:ltr;border:1px solid #e2e8f0;">06-Quality/</code></li>
+
+</ul>
+<hr style="border:none;height:2px;background:linear-gradient(90deg,transparent,#3b82f6,transparent);margin:2em 0;">
+
+<p style="margin:0;padding:0;line-height:0.1;"> </p><h2 style="font-size:13pt;font-weight:bold;color:#1e40af;border-bottom:1px solid #60a5fa;padding-bottom:0.2em;margin-top:1em;margin-bottom:0.5em;display:block;"><strong>الأدلة الرئيسية | Main Guides</strong></h2>
+
+<p style="margin:0;padding:0;line-height:0.1;"> </p><h3 style="font-size:11pt;font-weight:bold;color:#1e3a8a;margin-top:0.8em;margin-bottom:0.5em;display:block;"><strong>اقرأها بهذا الترتيب:</strong></h3>
+
+<h4 style="font-size:11pt;font-weight:bold;color:#1e293b;margin-top:0.5em;margin-bottom:0.5em;"><strong>البدء السريع (10 دقائق)</strong></h4>
+<p style="font-size:11pt;margin:0.3em 0;line-height:1.15;">📄 <a href="QUICK_START.md" style="color:#2563eb;text-decoration:none;">QUICK_START.md</a></p>
+<ul style="font-size:11pt;margin:0.5em 0;padding-right:2em;line-height:1.15;">
+<li style="margin:0.2em 0;">كيف تبدأ في 30 دقيقة</li>
+<li style="margin:0.2em 0;">الخطوات الأساسية</li>
+<li style="margin:0.2em 0;">النصائح المهمة</li>
+
+</ul>
+<h4 style="font-size:11pt;font-weight:bold;color:#1e293b;margin-top:0.5em;margin-bottom:0.5em;"><strong>الدليل الرئيسي الشامل (60 دقيقة)</strong></h4>
+<p style="font-size:11pt;margin:0.3em 0;line-height:1.15;">📄 <a href="00-Master/00_Master_API_Guide.md" style="color:#2563eb;text-decoration:none;">00-Master/00_Master_API_Guide.md</a></p>
+<ul style="font-size:11pt;margin:0.5em 0;padding-right:2em;line-height:1.15;">
+<li style="margin:0.2em 0;">نظرة معمارية كاملة</li>
+<li style="margin:0.2em 0;">مبادئ REST الأساسية</li>
+<li style="margin:0.2em 0;">Authentication & Authorization</li>
+<li style="margin:0.2em 0;">Response structure</li>
+<li style="margin:0.2em 0;">Performance & Caching</li>
+<li style="margin:0.2em 0;">Testing & Monitoring</li>
+
+</ul>
+<h4 style="font-size:11pt;font-weight:bold;color:#1e293b;margin-top:0.5em;margin-bottom:0.5em;"><strong>قائمة التدقيق (60 دقيقة)</strong></h4>
+<p style="font-size:11pt;margin:0.3em 0;line-height:1.15;">📄 <a href="00-Master/01_APIs_Audit_Checklist.md" style="color:#2563eb;text-decoration:none;">00-Master/01_APIs_Audit_Checklist.md</a></p>
+<ul style="font-size:11pt;margin:0.5em 0;padding-right:2em;line-height:1.15;">
+<li style="margin:0.2em 0;">151 معيار للتقييم</li>
+<li style="margin:0.2em 0;">نظام تقييم بالنقاط</li>
+<li style="margin:0.2em 0;">10 فئات رئيسية</li>
+
+</ul>
+<h4 style="font-size:11pt;font-weight:bold;color:#1e293b;margin-top:0.5em;margin-bottom:0.5em;"><strong>خطة التحسين (20 دقيقة)</strong></h4>
+<p style="font-size:11pt;margin:0.3em 0;line-height:1.15;">📄 <a href="00-Master/02_Improvement_Tracking.md" style="color:#2563eb;text-decoration:none;">00-Master/02_Improvement_Tracking.md</a></p>
+<ul style="font-size:11pt;margin:0.5em 0;padding-right:2em;line-height:1.15;">
+<li style="margin:0.2em 0;">خطة تحسين تدريجية</li>
+<li style="margin:0.2em 0;">KPIs واضحة</li>
+<li style="margin:0.2em 0;">متابعة منظمة</li>
+
+</ul>
+<hr style="border:none;height:2px;background:linear-gradient(90deg,transparent,#3b82f6,transparent);margin:2em 0;">
+
+<p style="margin:0;padding:0;line-height:0.1;"> </p><h2 style="font-size:13pt;font-weight:bold;color:#1e40af;border-bottom:1px solid #60a5fa;padding-bottom:0.2em;margin-top:1em;margin-bottom:0.5em;display:block;"><strong>الأقسام التفصيلية | Detailed Sections</strong></h2>
+
+<p style="margin:0;padding:0;line-height:0.1;"> </p><h3 style="font-size:11pt;font-weight:bold;color:#1e3a8a;margin-top:0.8em;margin-bottom:0.5em;display:block;"><strong>01-Architecture</strong> - البنية والتصميم</h3>
+<ul style="font-size:11pt;margin:0.5em 0;padding-right:2em;line-height:1.15;">
+<li style="margin:0.2em 0;">نظرة معمارية شاملة</li>
+<li style="margin:0.2em 0;">تنظيم الكود والمجلدات</li>
+<li style="margin:0.2em 0;">مبادئ تصميم REST</li>
+
+</ul>
+<p style="margin:0;padding:0;line-height:0.1;"> </p><h3 style="font-size:11pt;font-weight:bold;color:#1e3a8a;margin-top:0.8em;margin-bottom:0.5em;display:block;"><strong>02-Authentication</strong> - المصادقة والتخويل</h3>
+<ul style="font-size:11pt;margin:0.5em 0;padding-right:2em;line-height:1.15;">
+<li style="margin:0.2em 0;">استراتيجيات المصادقة (JWT, OAuth2, Sanctum)</li>
+<li style="margin:0.2em 0;">تنفيذ عملي</li>
+<li style="margin:0.2em 0;">RBAC & Permissions</li>
+
+</ul>
+<p style="margin:0;padding:0;line-height:0.1;"> </p><h3 style="font-size:11pt;font-weight:bold;color:#1e3a8a;margin-top:0.8em;margin-bottom:0.5em;display:block;"><strong>03-Implementation</strong> - التنفيذ العملي</h3>
+<ul style="font-size:11pt;margin:0.5em 0;padding-right:2em;line-height:1.15;">
+<li style="margin:0.2em 0;">CRUD Operations</li>
+<li style="margin:0.2em 0;">Response handling</li>
+<li style="margin:0.2em 0;">Validation rules</li>
+<li style="margin:0.2em 0;">Pagination & Filtering</li>
+
+</ul>
+<p style="margin:0;padding:0;line-height:0.1;"> </p><h3 style="font-size:11pt;font-weight:bold;color:#1e3a8a;margin-top:0.8em;margin-bottom:0.5em;display:block;"><strong>04-Security</strong> - الأمان</h3>
+<ul style="font-size:11pt;margin:0.5em 0;padding-right:2em;line-height:1.15;">
+<li style="margin:0.2em 0;">Security hardening</li>
+<li style="margin:0.2em 0;">Rate limiting</li>
+<li style="margin:0.2em 0;">CORS configuration</li>
+<li style="margin:0.2em 0;">Input validation</li>
+
+</ul>
+<p style="margin:0;padding:0;line-height:0.1;"> </p><h3 style="font-size:11pt;font-weight:bold;color:#1e3a8a;margin-top:0.8em;margin-bottom:0.5em;display:block;"><strong>05-Performance</strong> - الأداء</h3>
+<ul style="font-size:11pt;margin:0.5em 0;padding-right:2em;line-height:1.15;">
+<li style="margin:0.2em 0;">Caching strategies</li>
+<li style="margin:0.2em 0;">Database optimization</li>
+<li style="margin:0.2em 0;">Query optimization</li>
+<li style="margin:0.2em 0;">Response optimization</li>
+
+</ul>
+<p style="margin:0;padding:0;line-height:0.1;"> </p><h3 style="font-size:11pt;font-weight:bold;color:#1e3a8a;margin-top:0.8em;margin-bottom:0.5em;display:block;"><strong>06-Quality</strong> - الجودة</h3>
+<ul style="font-size:11pt;margin:0.5em 0;padding-right:2em;line-height:1.15;">
+<li style="margin:0.2em 0;">Testing strategy</li>
+<li style="margin:0.2em 0;">Code quality standards</li>
+<li style="margin:0.2em 0;">API documentation</li>
+
+</ul>
+<p style="margin:0;padding:0;line-height:0.1;"> </p><h3 style="font-size:11pt;font-weight:bold;color:#1e3a8a;margin-top:0.8em;margin-bottom:0.5em;display:block;"><strong>07-Operations</strong> - العمليات</h3>
+<ul style="font-size:11pt;margin:0.5em 0;padding-right:2em;line-height:1.15;">
+<li style="margin:0.2em 0;">Monitoring & Logging</li>
+<li style="margin:0.2em 0;">Deployment & CI/CD</li>
+<li style="margin:0.2em 0;">Error handling</li>
+
+</ul>
+<p style="margin:0;padding:0;line-height:0.1;"> </p><h3 style="font-size:11pt;font-weight:bold;color:#1e3a8a;margin-top:0.8em;margin-bottom:0.5em;display:block;"><strong>08-Reference</strong> - المراجع</h3>
+<ul style="font-size:11pt;margin:0.5em 0;padding-right:2em;line-height:1.15;">
+<li style="margin:0.2em 0;">Code templates</li>
+<li style="margin:0.2em 0;">Quick reference</li>
+<li style="margin:0.2em 0;">Troubleshooting guide</li>
+
+</ul>
+<hr style="border:none;height:2px;background:linear-gradient(90deg,transparent,#3b82f6,transparent);margin:2em 0;">
+
+<p style="margin:0;padding:0;line-height:0.1;"> </p><h2 style="font-size:13pt;font-weight:bold;color:#1e40af;border-bottom:1px solid #60a5fa;padding-bottom:0.2em;margin-top:1em;margin-bottom:0.5em;display:block;"><strong>الأهداف والنتائج المتوقعة | Goals & Expected Outcomes</strong></h2>
+
+<p style="margin:0;padding:0;line-height:0.1;"> </p><h3 style="font-size:11pt;font-weight:bold;color:#1e3a8a;margin-top:0.8em;margin-bottom:0.5em;display:block;"><strong>بعد تطبيق هذه المعايير:</strong></h3>
+
+<strong>APIs احترافية على مستوى عالمي</strong>
+<ul style="font-size:11pt;margin:0.5em 0;padding-right:2em;line-height:1.15;">
+<li style="margin:0.2em 0;">تتبع أفضل الممارسات الدولية</li>
+<li style="margin:0.2em 0;">آمنة وموثوقة</li>
+<li style="margin:0.2em 0;">سريعة وفعّالة</li>
+
+</ul>
+<strong>جودة قابلة للقياس</strong>
+<ul style="font-size:11pt;margin:0.5em 0;padding-right:2em;line-height:1.15;">
+<li style="margin:0.2em 0;">Audit score 90%+</li>
+<li style="margin:0.2em 0;">Test coverage ≥ 70%</li>
+<li style="margin:0.2em 0;">Performance targets محققة</li>
+
+</ul>
+<strong>فريق متمكن</strong>
+<ul style="font-size:11pt;margin:0.5em 0;padding-right:2em;line-height:1.15;">
+<li style="margin:0.2em 0;">معايير واضحة ومحددة</li>
+<li style="margin:0.2em 0;">وثائق شاملة</li>
+<li style="margin:0.2em 0;">قوالب جاهزة</li>
+
+</ul>
+<strong>صيانة سهلة</strong>
+<ul style="font-size:11pt;margin:0.5em 0;padding-right:2em;line-height:1.15;">
+<li style="margin:0.2em 0;">كود منظم ونظيف</li>
+<li style="margin:0.2em 0;">توثيق محدث</li>
+<li style="margin:0.2em 0;">Best practices مطبقة</li>
+
+</ul>
+<hr style="border:none;height:2px;background:linear-gradient(90deg,transparent,#3b82f6,transparent);margin:2em 0;">
+
+<p style="margin:0;padding:0;line-height:0.1;"> </p><h2 style="font-size:13pt;font-weight:bold;color:#1e40af;border-bottom:1px solid #60a5fa;padding-bottom:0.2em;margin-top:1em;margin-bottom:0.5em;display:block;"><strong>الجدول الزمني المقترح | Suggested Timeline</strong></h2>
+
+<p style="margin:0;padding:0;line-height:0.1;"> </p><h3 style="font-size:11pt;font-weight:bold;color:#1e3a8a;margin-top:0.8em;margin-bottom:0.5em;display:block;"><strong>للتقييم والتحسين:</strong></h3>
+
+<table style="width:100%;border-collapse:collapse;margin:1em 0;font-size:10pt;"><thead><tr><th style="background:#3b82f6;color:white;font-weight:bold;border:1px solid #e2e8f0;padding:8px 10px;text-align:center;font-size:10pt;">المرحلة</th><th style="background:#3b82f6;color:white;font-weight:bold;border:1px solid #e2e8f0;padding:8px 10px;text-align:center;font-size:10pt;">المدة</th><th style="background:#3b82f6;color:white;font-weight:bold;border:1px solid #e2e8f0;padding:8px 10px;text-align:center;font-size:10pt;">المخرجات</th></tr></thead><tbody><tr style="background:#f8fafc;"><td style="border:1px solid #e2e8f0;padding:6px 10px;text-align:right;font-size:10pt;"><strong>التقييم</strong></td><td style="border:1px solid #e2e8f0;padding:6px 10px;text-align:right;font-size:10pt;">1-2 أيام</td><td style="border:1px solid #e2e8f0;padding:6px 10px;text-align:right;font-size:10pt;">Audit completed, gaps identified</td></tr><tr style="background:white;"><td style="border:1px solid #e2e8f0;padding:6px 10px;text-align:right;font-size:10pt;"><strong>المرحلة 1</strong></td><td style="border:1px solid #e2e8f0;padding:6px 10px;text-align:right;font-size:10pt;">2 أسابيع</td><td style="border:1px solid #e2e8f0;padding:6px 10px;text-align:right;font-size:10pt;">الأساسيات الحرجة</td></tr><tr style="background:#f8fafc;"><td style="border:1px solid #e2e8f0;padding:6px 10px;text-align:right;font-size:10pt;"><strong>المرحلة 2</strong></td><td style="border:1px solid #e2e8f0;padding:6px 10px;text-align:right;font-size:10pt;">2 أسابيع</td><td style="border:1px solid #e2e8f0;padding:6px 10px;text-align:right;font-size:10pt;">الأداء والتحسين</td></tr><tr style="background:white;"><td style="border:1px solid #e2e8f0;padding:6px 10px;text-align:right;font-size:10pt;"><strong>المرحلة 3</strong></td><td style="border:1px solid #e2e8f0;padding:6px 10px;text-align:right;font-size:10pt;">2 أسابيع</td><td style="border:1px solid #e2e8f0;padding:6px 10px;text-align:right;font-size:10pt;">الجودة والمراقبة</td></tr></tbody></table>
+<strong>المجموع:</strong> 6 أسابيع
+
+<hr style="border:none;height:2px;background:linear-gradient(90deg,transparent,#3b82f6,transparent);margin:2em 0;">
+
+<p style="margin:0;padding:0;line-height:0.1;"> </p><h3 style="font-size:11pt;font-weight:bold;color:#1e3a8a;margin-top:0.8em;margin-bottom:0.5em;display:block;"><strong>للبناء من الصفر:</strong></h3>
+
+<table style="width:100%;border-collapse:collapse;margin:1em 0;font-size:10pt;"><thead><tr><th style="background:#3b82f6;color:white;font-weight:bold;border:1px solid #e2e8f0;padding:8px 10px;text-align:center;font-size:10pt;">المرحلة</th><th style="background:#3b82f6;color:white;font-weight:bold;border:1px solid #e2e8f0;padding:8px 10px;text-align:center;font-size:10pt;">المدة</th><th style="background:#3b82f6;color:white;font-weight:bold;border:1px solid #e2e8f0;padding:8px 10px;text-align:center;font-size:10pt;">المخرجات</th></tr></thead><tbody><tr style="background:#f8fafc;"><td style="border:1px solid #e2e8f0;padding:6px 10px;text-align:right;font-size:10pt;"><strong>التصميم</strong></td><td style="border:1px solid #e2e8f0;padding:6px 10px;text-align:right;font-size:10pt;">1 أسبوع</td><td style="border:1px solid #e2e8f0;padding:6px 10px;text-align:right;font-size:10pt;">Architecture, API design</td></tr><tr style="background:white;"><td style="border:1px solid #e2e8f0;padding:6px 10px;text-align:right;font-size:10pt;"><strong>Core APIs</strong></td><td style="border:1px solid #e2e8f0;padding:6px 10px;text-align:right;font-size:10pt;">2-3 أسابيع</td><td style="border:1px solid #e2e8f0;padding:6px 10px;text-align:right;font-size:10pt;">CRUD operations</td></tr><tr style="background:#f8fafc;"><td style="border:1px solid #e2e8f0;padding:6px 10px;text-align:right;font-size:10pt;"><strong>الأمان</strong></td><td style="border:1px solid #e2e8f0;padding:6px 10px;text-align:right;font-size:10pt;">1 أسبوع</td><td style="border:1px solid #e2e8f0;padding:6px 10px;text-align:right;font-size:10pt;">Auth, Security, Rate limiting</td></tr><tr style="background:white;"><td style="border:1px solid #e2e8f0;padding:6px 10px;text-align:right;font-size:10pt;"><strong>الأداء</strong></td><td style="border:1px solid #e2e8f0;padding:6px 10px;text-align:right;font-size:10pt;">1 أسبوع</td><td style="border:1px solid #e2e8f0;padding:6px 10px;text-align:right;font-size:10pt;">Caching, Optimization</td></tr><tr style="background:#f8fafc;"><td style="border:1px solid #e2e8f0;padding:6px 10px;text-align:right;font-size:10pt;"><strong>الجودة</strong></td><td style="border:1px solid #e2e8f0;padding:6px 10px;text-align:right;font-size:10pt;">1-2 أسابيع</td><td style="border:1px solid #e2e8f0;padding:6px 10px;text-align:right;font-size:10pt;">Tests, Documentation</td></tr><tr style="background:white;"><td style="border:1px solid #e2e8f0;padding:6px 10px;text-align:right;font-size:10pt;"><strong>الإطلاق</strong></td><td style="border:1px solid #e2e8f0;padding:6px 10px;text-align:right;font-size:10pt;">1 أسبوع</td><td style="border:1px solid #e2e8f0;padding:6px 10px;text-align:right;font-size:10pt;">Deploy, Monitor</td></tr></tbody></table>
+<strong>المجموع:</strong> 7-10 أسابيع
+
+<hr style="border:none;height:2px;background:linear-gradient(90deg,transparent,#3b82f6,transparent);margin:2em 0;">
+
+<p style="margin:0;padding:0;line-height:0.1;"> </p><h2 style="font-size:13pt;font-weight:bold;color:#1e40af;border-bottom:1px solid #60a5fa;padding-bottom:0.2em;margin-top:1em;margin-bottom:0.5em;display:block;"><strong>روابط سريعة | Quick Links</strong></h2>
+
+<p style="margin:0;padding:0;line-height:0.1;"> </p><h3 style="font-size:11pt;font-weight:bold;color:#1e3a8a;margin-top:0.8em;margin-bottom:0.5em;display:block;"><strong>للبدء:</strong></h3>
+<ul style="font-size:11pt;margin:0.5em 0;padding-right:2em;line-height:1.15;">
+<li style="margin:0.2em 0;"><a href="QUICK_START.md" style="color:#2563eb;text-decoration:none;">QUICK_START.md</a> - ابدأ في 30 دقيقة</li>
+<li style="margin:0.2em 0;"><a href="00-Master/00_Master_API_Guide.md" style="color:#2563eb;text-decoration:none;">00_Master_API_Guide.md</a> - الدليل الشامل</li>
+<li style="margin:0.2em 0;"><a href="00-Master/01_APIs_Audit_Checklist.md" style="color:#2563eb;text-decoration:none;">01_APIs_Audit_Checklist.md</a> - أداة التقييم</li>
+
+</ul>
+<p style="margin:0;padding:0;line-height:0.1;"> </p><h3 style="font-size:11pt;font-weight:bold;color:#1e3a8a;margin-top:0.8em;margin-bottom:0.5em;display:block;"><strong>للتطبيق:</strong></h3>
+<ul style="font-size:11pt;margin:0.5em 0;padding-right:2em;line-height:1.15;">
+<li style="margin:0.2em 0;"><a href="01-Architecture/00-index.md" style="color:#2563eb;text-decoration:none;">01-Architecture</a> - البنية</li>
+<li style="margin:0.2em 0;"><a href="02-Authentication/00-index.md" style="color:#2563eb;text-decoration:none;">02-Authentication</a> - المصادقة</li>
+<li style="margin:0.2em 0;"><a href="03-Implementation/00-index.md" style="color:#2563eb;text-decoration:none;">03-Implementation</a> - التنفيذ</li>
+<li style="margin:0.2em 0;"><a href="04-Security/00-index.md" style="color:#2563eb;text-decoration:none;">04-Security</a> - الأمان</li>
+<li style="margin:0.2em 0;"><a href="05-Performance/00-index.md" style="color:#2563eb;text-decoration:none;">05-Performance</a> - الأداء</li>
+<li style="margin:0.2em 0;"><a href="06-Quality/00-index.md" style="color:#2563eb;text-decoration:none;">06-Quality</a> - الجودة</li>
+<li style="margin:0.2em 0;"><a href="07-Operations/00-index.md" style="color:#2563eb;text-decoration:none;">07-Operations</a> - العمليات</li>
+<li style="margin:0.2em 0;"><a href="08-Reference/00-index.md" style="color:#2563eb;text-decoration:none;">08-Reference</a> - المراجع</li>
+
+</ul>
+<hr style="border:none;height:2px;background:linear-gradient(90deg,transparent,#3b82f6,transparent);margin:2em 0;">
+
+<p style="margin:0;padding:0;line-height:0.1;"> </p><h2 style="font-size:13pt;font-weight:bold;color:#1e40af;border-bottom:1px solid #60a5fa;padding-bottom:0.2em;margin-top:1em;margin-bottom:0.5em;display:block;">⚠️ <strong>مهم | Important</strong></h2>
+
+<p style="margin:0;padding:0;line-height:0.1;"> </p><h3 style="font-size:11pt;font-weight:bold;color:#1e3a8a;margin-top:0.8em;margin-bottom:0.5em;display:block;"><strong>هذه الوثيقة هي:</strong></h3>
+<ul style="font-size:11pt;margin:0.5em 0;padding-right:2em;line-height:1.15;">
+<li style="margin:0.2em 0;">معايير عامة وعالمية</li>
+<li style="margin:0.2em 0;">قابلة للتطبيق على أي مشروع</li>
+<li style="margin:0.2em 0;">مرجع دائم ومستدام</li>
+<li style="margin:0.2em 0;">أداة تقييم وتحسين</li>
+
+</ul>
+<p style="margin:0;padding:0;line-height:0.1;"> </p><h3 style="font-size:11pt;font-weight:bold;color:#1e3a8a;margin-top:0.8em;margin-bottom:0.5em;display:block;"><strong>هذه الوثيقة ليست:</strong></h3>
+<ul style="font-size:11pt;margin:0.5em 0;padding-right:2em;line-height:1.15;">
+<li style="margin:0.2em 0;">مخصصة لمنصة معينة</li>
+<li style="margin:0.2em 0;">تتطلب تقنية محددة</li>
+<li style="margin:0.2em 0;">مرتبطة بـ framework واحد</li>
+<li style="margin:0.2em 0;">محدودة بحالة استخدام واحدة</li>
+
+</ul>
+<hr style="border:none;height:2px;background:linear-gradient(90deg,transparent,#3b82f6,transparent);margin:2em 0;">
+
+<p style="margin:0;padding:0;line-height:0.1;"> </p><h2 style="font-size:13pt;font-weight:bold;color:#1e40af;border-bottom:1px solid #60a5fa;padding-bottom:0.2em;margin-top:1em;margin-bottom:0.5em;display:block;"><strong>التخصيص لمنصات محددة | Platform-Specific Customization</strong></h2>
+
+<p style="margin:0;padding:0;line-height:0.1;"> </p><h3 style="font-size:11pt;font-weight:bold;color:#1e3a8a;margin-top:0.8em;margin-bottom:0.5em;display:block;"><strong>للتخصيص:</strong></h3>
+
+<p style="font-size:11pt;margin:0.3em 0;line-height:1.15;">هذه المعايير <strong>عامة وقابلة للتطبيق</strong>.</p>
+
+<p style="font-size:11pt;margin:0.3em 0;line-height:1.15;">للتخصيص لمنصة معينة (Laravel, Shofy, etc.):</p>
+<ul style="font-size:11pt;margin:0.5em 0;padding-right:2em;line-height:1.15;">
+<li style="margin:0.2em 0;">راجع المجلدات المخصصة (إن وجدت)</li>
+<li style="margin:0.2em 0;">أو اطلب دليل تخصيص منفصل</li>
+
+</ul>
+<strong>مثال:</strong>
+<ul style="font-size:11pt;margin:0.5em 0;padding-right:2em;line-height:1.15;">
+<li style="margin:0.2em 0;"><code style="background:#f1f5f9;padding:2px 6px;border-radius:3px;font-family:Consolas,monospace;color:#dc2626;font-size:10pt;direction:ltr;border:1px solid #e2e8f0;">APIs_v2_Shofy_Customization/</code> - تطبيق المعايير على Shofy</li>
+<li style="margin:0.2em 0;"><code style="background:#f1f5f9;padding:2px 6px;border-radius:3px;font-family:Consolas,monospace;color:#dc2626;font-size:10pt;direction:ltr;border:1px solid #e2e8f0;">APIs_v2_Django_Customization/</code> - تطبيق المعايير على Django</li>
+<li style="margin:0.2em 0;">وهكذا...</li>
+
+</ul>
+<hr style="border:none;height:2px;background:linear-gradient(90deg,transparent,#3b82f6,transparent);margin:2em 0;">
+
+<p style="margin:0;padding:0;line-height:0.1;"> </p><h2 style="font-size:13pt;font-weight:bold;color:#1e40af;border-bottom:1px solid #60a5fa;padding-bottom:0.2em;margin-top:1em;margin-bottom:0.5em;display:block;"><strong>الدعم والمساعدة | Support</strong></h2>
+
+<p style="margin:0;padding:0;line-height:0.1;"> </p><h3 style="font-size:11pt;font-weight:bold;color:#1e3a8a;margin-top:0.8em;margin-bottom:0.5em;display:block;"><strong>للأسئلة:</strong></h3>
+<ul style="font-size:11pt;margin:0.5em 0;padding-right:2em;line-height:1.15;">
+<li style="margin:0.2em 0;">راجع المستندات أولاً</li>
+<li style="margin:0.2em 0;">ابحث في <a href="08-Reference/03_Troubleshooting.md" style="color:#2563eb;text-decoration:none;">08-Reference/03_Troubleshooting.md</a></li>
+<li style="margin:0.2em 0;">راجع المعايير الدولية المرجعية</li>
+<li style="margin:0.2em 0;">اتصل بـ Tech Lead</li>
+
+</ul>
+<p style="margin:0;padding:0;line-height:0.1;"> </p><h3 style="font-size:11pt;font-weight:bold;color:#1e3a8a;margin-top:0.8em;margin-bottom:0.5em;display:block;"><strong>للمساهمات:</strong></h3>
+<ul style="font-size:11pt;margin:0.5em 0;padding-right:2em;line-height:1.15;">
+<li style="margin:0.2em 0;">اقترح تحسينات</li>
+<li style="margin:0.2em 0;">شارك best practices</li>
+<li style="margin:0.2em 0;">حدّث التوثيق</li>
+<li style="margin:0.2em 0;">أضف أمثلة جديدة</li>
+
+</ul>
+<hr style="border:none;height:2px;background:linear-gradient(90deg,transparent,#3b82f6,transparent);margin:2em 0;">
+
+<p style="margin:0;padding:0;line-height:0.1;"> </p><h2 style="font-size:13pt;font-weight:bold;color:#1e40af;border-bottom:1px solid #60a5fa;padding-bottom:0.2em;margin-top:1em;margin-bottom:0.5em;display:block;"><strong>الإحصائيات | Statistics</strong></h2>
+
+<p style="margin:0;padding:0;line-height:0.1;"> </p><h3 style="font-size:11pt;font-weight:bold;color:#1e3a8a;margin-top:0.8em;margin-bottom:0.5em;display:block;"><strong>التغطية الشاملة:</strong></h3>
+
+<ul style="font-size:11pt;margin:0.5em 0;padding-right:2em;line-height:1.15;">
+<li style="margin:0.2em 0;"><strong>إجمالي الملفات:</strong> 36 ملف</li>
+<li style="margin:0.2em 0;"><strong>ملفات حرجة جديدة:</strong> 2 (Idempotency + Data Privacy) 🔴</li>
+<li style="margin:0.2em 0;"><strong>ملفات مفيدة جديدة:</strong> 5 (File Uploads + Async Jobs + API Gateway + OpenAPI + Advanced Monitoring) 🟡</li>
+<li style="margin:0.2em 0;"><strong>ملفات محسّنة:</strong> 3 (Response Handling + Code Quality + Quick Reference)</li>
+<li style="margin:0.2em 0;"><strong>معدل الاكتمال:</strong> 100% ✅</li>
+
+</ul>
+<p style="margin:0;padding:0;line-height:0.1;"> </p><h3 style="font-size:11pt;font-weight:bold;color:#1e3a8a;margin-top:0.8em;margin-bottom:0.5em;display:block;"><strong>توزيع الملفات:</strong></h3>
+
+<table style="width:100%;border-collapse:collapse;margin:1em 0;font-size:10pt;"><thead><tr><th style="background:#3b82f6;color:white;font-weight:bold;border:1px solid #e2e8f0;padding:8px 10px;text-align:center;font-size:10pt;">القسم</th><th style="background:#3b82f6;color:white;font-weight:bold;border:1px solid #e2e8f0;padding:8px 10px;text-align:center;font-size:10pt;">عدد الملفات</th><th style="background:#3b82f6;color:white;font-weight:bold;border:1px solid #e2e8f0;padding:8px 10px;text-align:center;font-size:10pt;">الحالة</th></tr></thead><tbody><tr style="background:#f8fafc;"><td style="border:1px solid #e2e8f0;padding:6px 10px;text-align:right;font-size:10pt;">00-Master</td><td style="border:1px solid #e2e8f0;padding:6px 10px;text-align:right;font-size:10pt;">3</td><td style="border:1px solid #e2e8f0;padding:6px 10px;text-align:right;font-size:10pt;">✅</td></tr><tr style="background:white;"><td style="border:1px solid #e2e8f0;padding:6px 10px;text-align:right;font-size:10pt;">01-Architecture</td><td style="border:1px solid #e2e8f0;padding:6px 10px;text-align:right;font-size:10pt;">4</td><td style="border:1px solid #e2e8f0;padding:6px 10px;text-align:right;font-size:10pt;">✅</td></tr><tr style="background:#f8fafc;"><td style="border:1px solid #e2e8f0;padding:6px 10px;text-align:right;font-size:10pt;">02-Authentication</td><td style="border:1px solid #e2e8f0;padding:6px 10px;text-align:right;font-size:10pt;">3</td><td style="border:1px solid #e2e8f0;padding:6px 10px;text-align:right;font-size:10pt;">✅</td></tr><tr style="background:white;"><td style="border:1px solid #e2e8f0;padding:6px 10px;text-align:right;font-size:10pt;">03-Implementation</td><td style="border:1px solid #e2e8f0;padding:6px 10px;text-align:right;font-size:10pt;">7</td><td style="border:1px solid #e2e8f0;padding:6px 10px;text-align:right;font-size:10pt;">✅</td></tr><tr style="background:#f8fafc;"><td style="border:1px solid #e2e8f0;padding:6px 10px;text-align:right;font-size:10pt;">04-Security</td><td style="border:1px solid #e2e8f0;padding:6px 10px;text-align:right;font-size:10pt;">4</td><td style="border:1px solid #e2e8f0;padding:6px 10px;text-align:right;font-size:10pt;">✅</td></tr><tr style="background:white;"><td style="border:1px solid #e2e8f0;padding:6px 10px;text-align:right;font-size:10pt;">05-Performance</td><td style="border:1px solid #e2e8f0;padding:6px 10px;text-align:right;font-size:10pt;">3</td><td style="border:1px solid #e2e8f0;padding:6px 10px;text-align:right;font-size:10pt;">✅</td></tr><tr style="background:#f8fafc;"><td style="border:1px solid #e2e8f0;padding:6px 10px;text-align:right;font-size:10pt;">06-Quality</td><td style="border:1px solid #e2e8f0;padding:6px 10px;text-align:right;font-size:10pt;">4</td><td style="border:1px solid #e2e8f0;padding:6px 10px;text-align:right;font-size:10pt;">✅</td></tr><tr style="background:white;"><td style="border:1px solid #e2e8f0;padding:6px 10px;text-align:right;font-size:10pt;">07-Operations</td><td style="border:1px solid #e2e8f0;padding:6px 10px;text-align:right;font-size:10pt;">4</td><td style="border:1px solid #e2e8f0;padding:6px 10px;text-align:right;font-size:10pt;">✅</td></tr><tr style="background:#f8fafc;"><td style="border:1px solid #e2e8f0;padding:6px 10px;text-align:right;font-size:10pt;">08-Reference</td><td style="border:1px solid #e2e8f0;padding:6px 10px;text-align:right;font-size:10pt;">3</td><td style="border:1px solid #e2e8f0;padding:6px 10px;text-align:right;font-size:10pt;">✅</td></tr><tr style="background:white;"><td style="border:1px solid #e2e8f0;padding:6px 10px;text-align:right;font-size:10pt;"><strong>الإجمالي</strong></td><td style="border:1px solid #e2e8f0;padding:6px 10px;text-align:right;font-size:10pt;"><strong>36</strong></td><td style="border:1px solid #e2e8f0;padding:6px 10px;text-align:right;font-size:10pt;"><strong>100%</strong></td></tr></tbody></table>
+<hr style="border:none;height:2px;background:linear-gradient(90deg,transparent,#3b82f6,transparent);margin:2em 0;">
+
+<p style="margin:0;padding:0;line-height:0.1;"> </p><h2 style="font-size:13pt;font-weight:bold;color:#1e40af;border-bottom:1px solid #60a5fa;padding-bottom:0.2em;margin-top:1em;margin-bottom:0.5em;display:block;"><strong>سجل التحديثات | Changelog</strong></h2>
+
+<p style="margin:0;padding:0;line-height:0.1;"> </p><h3 style="font-size:11pt;font-weight:bold;color:#1e3a8a;margin-top:0.8em;margin-bottom:0.5em;display:block;"><strong>v2.1 (2025-10-19) - Enhanced & Complete</strong></h3>
+<ul style="font-size:11pt;margin:0.5em 0;padding-right:2em;line-height:1.15;">
+<li style="margin:0.2em 0;"><strong>أضيفت 10 ملفات جديدة</strong> (2 حرجة + 5 مفيدة + 3 محسّنة)</li>
+<li style="margin:0.2em 0;"><strong>Idempotency Keys</strong> - حماية من الطلبات المكررة (حرجة)</li>
+<li style="margin:0.2em 0;"><strong>Data Privacy & GDPR</strong> - حماية بيانات المستخدمين (حرجة)</li>
+<li style="margin:0.2em 0;"><strong>File Uploads</strong> - رفع ومعالجة الملفات بأمان</li>
+<li style="margin:0.2em 0;"><strong>Async Jobs & Queues</strong> - معالجة غير متزامنة</li>
+<li style="margin:0.2em 0;"><strong>API Gateway</strong> - NGINX/Apache/Cloudflare configuration</li>
+<li style="margin:0.2em 0;"><strong>OpenAPI Specification</strong> - Swagger UI & contract testing</li>
+<li style="margin:0.2em 0;"><strong>Advanced Monitoring</strong> - Prometheus, Tracing, APM</li>
+<li style="margin:0.2em 0;"><strong>Response Handling</strong> - توسيع من 103 إلى 615 سطر</li>
+<li style="margin:0.2em 0;"><strong>Code Quality</strong> - توسيع من 57 إلى 485 سطر</li>
+<li style="margin:0.2em 0;"><strong>Quick Reference</strong> - توسيع من 85 إلى 509 سطر</li>
+<li style="margin:0.2em 0;"><strong>معدل الاكتمال: 100%</strong> - لا فجوات متبقية</li>
+
+</ul>
+<p style="margin:0;padding:0;line-height:0.1;"> </p><h3 style="font-size:11pt;font-weight:bold;color:#1e3a8a;margin-top:0.8em;margin-bottom:0.5em;display:block;"><strong>v2.0 (2025-10-19)</strong></h3>
+<ul style="font-size:11pt;margin:0.5em 0;padding-right:2em;line-height:1.15;">
+<li style="margin:0.2em 0;">نسخة جديدة كـمعايير عامة وعالمية</li>
+<li style="margin:0.2em 0;">Audit checklist شامل (151 معيار)</li>
+<li style="margin:0.2em 0;">خطة تحسين تدريجية</li>
+<li style="margin:0.2em 0;">أمثلة عملية من Laravel</li>
+<li style="margin:0.2em 0;">ثنائي اللغة (عربي/إنجليزي)</li>
+<li style="margin:0.2em 0;">قابلة للتطبيق على أي مشروع</li>
+
+</ul>
+<p style="margin:0;padding:0;line-height:0.1;"> </p><h3 style="font-size:11pt;font-weight:bold;color:#1e3a8a;margin-top:0.8em;margin-bottom:0.5em;display:block;"><strong>v1.0 (Previous)</strong></h3>
+<ul style="font-size:11pt;margin:0.5em 0;padding-right:2em;line-height:1.15;">
+<li style="margin:0.2em 0;">شاملة لكن معقدة جداً</li>
+<li style="margin:0.2em 0;">مخصصة للشركاء والتكاملات الخارجية</li>
+<li style="margin:0.2em 0;">ملف واحد كبير (3789 سطر)</li>
+
+</ul>
+<hr style="border:none;height:2px;background:linear-gradient(90deg,transparent,#3b82f6,transparent);margin:2em 0;">
+
+<strong>آخر تحديث | Last Updated</strong>: October 20, 2025  
+<strong>الإصدار | Version</strong>: 2.0
+
+        <p style="margin-top:2em;padding-top:1em;border-top:1px solid #e2e8f0;color:#64748b;font-size:9pt;">
+            <strong>المستند:</strong> README | <strong>التاريخ:</strong> 2025-10-20
+        </p>
+    </div>
+</body>
+</html>

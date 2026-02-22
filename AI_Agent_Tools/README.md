@@ -18,7 +18,10 @@ This folder contains specialized tools and frameworks for AI agent behavior, con
 ### 📋 **Content Management | إدارة المحتوى**
 - **`AI_Agent_Content_Management_Guide.md`** - Guidelines for handling content duplications and organization
 - **`Universal_Plan_Review_Framework.md`** - Comprehensive framework for reviewing and improving development plans
-- **`REFACTORING_MEMO.md`** - Universal refactoring rules for file size and structure management
+- **`Content_Formatting_Rules.md`** - Emoji usage and code snippet formatting standards
+
+### 🔧 **Legacy Documentation**
+- **`REFACTORING_MEMO.md`** - Universal refactoring rules for file size and structure management (if exists)
 
 ## Purpose | الغرض
 
@@ -48,12 +51,19 @@ These tools ensure:
 ### For AI Agents | للوكلاء الذكاء الاصطناعي
 1. **Reference** `AI_Agent_Specialization_Prompt.md` for core behavior
 2. **Apply** content management guidelines for organization
-3. **Use** review frameworks for quality assurance
+3. **Follow** `Content_Formatting_Rules.md` for emoji and code standards
+4. **Use** review frameworks for quality assurance
 
 ### For Developers | للمطورين
 1. **Follow** the specialization guidelines when working with AI
-2. **Maintain** content organization standards
-3. **Apply** review frameworks for plan improvements
+2. **Apply** `Content_Formatting_Rules.md` when writing documentation
+3. **Maintain** content organization standards
+4. **Use** review frameworks for plan improvements
+
+### Key Standards | المعايير الرئيسية
+- **Emojis**: Only ⚠️ for critical warnings, ✅❌ in code/tables, ⭐ for ratings
+- **Code Snippets**: 10-15 lines ideal, max 30 lines
+- **Formatting**: Professional, clean, minimal decoration
 
 ## Integration | التكامل
 
@@ -73,6 +83,6 @@ These tools are integrated with:
 
 ---
 
-**Last Updated | آخر تحديث**: January 2025  
-**Version | الإصدار**: 2.0 - Enhanced Organization  
-**Status | الحالة**: ✅ Production Ready
+**Last Updated | آخر تحديث**: 2025-10-20  
+**Version | الإصدار**: 2.1 - Content Formatting Rules Added  
+**Status | الحالة**: Production Ready
